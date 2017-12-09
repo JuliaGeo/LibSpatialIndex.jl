@@ -1,5 +1,7 @@
 module LibSpatialIndex
 
-# package code goes here
+    include("capi.jl")
+
+    version() = unsafe_string(SIDX_Version())
 
 end # module
