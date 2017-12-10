@@ -25,16 +25,17 @@ inserts two items,
 - the first with `id` 1, associated with the box specified by `[xmin=0.0,ymin=0.0]` and `[xmax=1.0,ymax=1.0]`.
 - the second with `id` 2, associated with the box specified by `[xmin=0.0,ymin=0.0]` and `[xmax=2.0,ymax=2.0]`.
 
+## Queries
 Thereafter, you can perform queries on the `rtree` using either (i) `intersects(rtree, minvalues, maxvalues)` for all items intersecting the box specified by `minvalues` and `maxvalues`, or (ii) `knn(rtree, minvalues, maxvalues, k)` for the `k` nearest items in `rtree` to the box specified by `minvalues` and `maxvalues`.
 
-## Intersection
+### Intersection
 So for instance,
 ```julia
 LibSpatialIndex.intersects(rtree, [0.,0.],[1.,1.])
 ```
 will return the vector `[1,2]` on the `rtree` constructed earlier, to indicate that items with ids `1` and `2` intersects the box specified by `[xmin=0.0,ymin=0.0]` and `[xmax=1.0,ymax=1.0]`.
 
-## k-Nearest Neighbors
+### k Nearest Neighbors
 For `knn` queries,
 ```julia
 LibSpatialIndex.knn(rtree, [2.,2.],[2.,2.], 1)
