@@ -75,20 +75,20 @@ module LibSpatialIndex
     mutable struct RTree
         index::C.IndexH
         indextype::C.RTIndexType
-        ndim::Integer
+        ndim::UInt32
         variant::C.RTIndexVariant
         storage::C.RTStorageType
-        indexcapacity::Integer
-        leafcapacity::Integer
-        leafpoolcapacity::Integer
-        indexpoolcapacity::Integer
-        regionpoolcapacity::Integer
-        pointpoolcapacity::Integer
+        indexcapacity::UInt32
+        leafcapacity::UInt32
+        leafpoolcapacity::UInt32
+        indexpoolcapacity::UInt32
+        regionpoolcapacity::UInt32
+        pointpoolcapacity::UInt32
         tightMBR::Bool
-        nearminimumoverlapfactor::Integer
-        fillfactor::Real
-        splitdistributionfactor::Real
-        reinsertfactor::Real
+        nearminimumoverlapfactor::UInt32
+        fillfactor::Float64
+        splitdistributionfactor::Float64
+        reinsertfactor::Float64
 
         function RTree(ndim::Integer;
                 indextype::C.RTIndexType = C.RT_RTree,
@@ -136,9 +136,10 @@ module LibSpatialIndex
             Bool(C.Index_IsValid(index)) || error("Invalid index")
             C.IndexProperty_Destroy(p)
             rtree = new(index, indextype, ndim, variant, storage, indexcapacity,
-                leafcapacity, leafpoolcapacity, indexpoolcapacity, regionpoolcapacity,
-                pointpoolcapacity, tightMBR, nearminimumoverlapfactor, fillfactor,
-                splitdistributionfactor, reinsertfactor)
+                leafcapacity, leafpoolcapacity, indexpoolcapacity,
+                regionpoolcapacity, pointpoolcapacity, tightMBR,
+                nearminimumoverlapfactor, fillfactor, splitdistributionfactor,
+                reinsertfactor)
             finalizer(rtree, x -> (C.Index_Destroy(x.index); x.index = C_NULL))
             rtree
         end
