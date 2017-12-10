@@ -3,6 +3,12 @@ module LibSpatialIndex
     include("capi.jl")
 
     version() = unsafe_string(C.SIDX_Version())
+    
+    function _checkresult(result::C.RTError, message::String)
+        if result == C.RT_Failure || result == C.RT_Fatal
+            error(message)
+        end
+    end
 
     """
     The RTree index [guttman84] is a balanced tree structure that consists of
@@ -145,40 +151,43 @@ module LibSpatialIndex
         end
     end
 
-    function insert!(rtree::RTree, id::Int, minvalues, maxvalues)
-        @assert length(minvalues) == length(maxvalues)
-        C.Index_InsertData(rtree.index, id, pointer(minvalues),
+    function insert!(
+            rtree::RTree,
+            id::Integer,
+            minvalues::Vector{Float64},
+            maxvalues::Vector{Float64}
+        )
+        C.Index_InsertData(rtree.index, Int64(id), pointer(minvalues),
             pointer(maxvalues), UInt32(length(minvalues)), Ptr{UInt8}(0), Cint(0)
         )
     end
 
-    function intersects(rtree::RTree, minvalues, maxvalues)
-        ndim = length(minvalues)
-        @assert ndim == length(maxvalues)
+    function intersects(
+            rtree::RTree,
+            minvalues::Vector{Float64},
+            maxvalues::Vector{Float64}
+        )
         items = Ref{Ptr{Int64}}()
         nresults = Ref{UInt64}()
         result = C.Index_Intersects_id(rtree.index, pointer(minvalues),
-            pointer(maxvalues), UInt32(ndim), items, nresults
+            pointer(maxvalues), UInt32(length(minvalues)), items, nresults
         )
-        if result == C.RT_Failure || result == C.RT_Fatal
-            error("Index_Intersects_id: Failed to evaluate")
-        else
-            return unsafe_wrap(Array, items[], nresults[])
-        end
+        _checkresult(result, "Index_Intersects_id: Failed to evaluate")
+        unsafe_wrap(Array, items[], nresults[])
     end
 
-    function knn(rtree::RTree, minvalues, maxvalues, k::Integer)
-        ndim = length(minvalues)
-        @assert ndim == length(maxvalues)
+    function knn(
+            rtree::RTree,
+            minvalues::Vector{Float64},
+            maxvalues::Vector{Float64},
+            k::Integer
+        )
         items = Ref{Ptr{Int64}}()
         nresults = Ref{UInt64}(k)
         result = C.Index_NearestNeighbors_id(rtree.index, pointer(minvalues),
-            pointer(maxvalues), UInt32(ndim), items, nresults)
-        if result == C.RT_Failure || result == C.RT_Fatal
-            error("Index_NearestNeighbors_id: Failed to evaluate")
-        else
-            return unsafe_wrap(Array, items[], nresults[])
-        end
+            pointer(maxvalues), UInt32(length(minvalues)), items, nresults)
+        _checkresult(result, "Index_NearestNeighbors_id: Failed to evaluate")
+        unsafe_wrap(Array, items[], nresults[])
     end
     
 end # module
