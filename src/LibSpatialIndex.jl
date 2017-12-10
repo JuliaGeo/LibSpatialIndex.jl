@@ -3,7 +3,7 @@ module LibSpatialIndex
     include("capi.jl")
 
     version() = unsafe_string(C.SIDX_Version())
-    
+
     function _checkresult(result::C.RTError, message::String)
         if result == C.RT_Failure || result == C.RT_Fatal
             error(message)
@@ -151,6 +151,11 @@ module LibSpatialIndex
         end
     end
 
+    """
+    Inserts an item into the `rtree` with given `id` and boundingbox specified
+    by `minvalues` and `maxvalues`, where the item lies within the interval
+    `[minvalues[i],maxvalues[i]]` for each axis `i` in 1, ..., `ndim`.
+    """
     function insert!(
             rtree::RTree,
             id::Integer,
@@ -162,6 +167,13 @@ module LibSpatialIndex
         )
     end
 
+    """
+    Returns a vector of `id`s corresponding to items in `rtree` that intersects
+    the box specified by `minvalues` and `maxvalues`.
+
+    Each item intersects the interval `[minvalues[i],maxvalues[i]]` for each
+    axis `i` in 1, ..., `ndim`.
+    """
     function intersects(
             rtree::RTree,
             minvalues::Vector{Float64},
@@ -176,6 +188,15 @@ module LibSpatialIndex
         unsafe_wrap(Array, items[], nresults[])
     end
 
+    """
+    Returns a vector of `id`s corresponding to the `k` items in `rtree`
+    that are nearest to the box specified by `minvalues` and `maxvalues`.
+
+    Each item intersects the interval `[minvalues[i],maxvalues[i]]` for each
+    axis `i` in 1, ..., `ndim`. If there are fewer than `k` items in `rtree`,
+    it will return less than `k` items. On the other hand, if there ties
+    between some of the items, it might return more than `k` items.
+    """
     function knn(
             rtree::RTree,
             minvalues::Vector{Float64},
