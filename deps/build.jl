@@ -2,7 +2,7 @@ using BinDeps
 
 @BinDeps.setup
 
-libspatialindex = library_dependency("libspatialindex", aliases=["spatialindex_c-64"])
+libspatialindex = library_dependency("libspatialindex", aliases=["spatialindex_c-64","libspatialindex_c"])
 version = v"1.8.5"
 
 if is_windows()
@@ -12,6 +12,11 @@ if is_windows()
     libpath = joinpath(BinDeps.depsdir(libspatialindex), "libspatialindex", "build", "bin")
     provides(Binaries, uri, libspatialindex,
         unpacked_dir=".", installed_libpath=libpath, os=:Windows)
+end
+
+if is_apple()
+    using Homebrew
+    provides(Homebrew.HB, "spatialindex", libspatialindex, os = :Darwin)
 end
 
 @BinDeps.install Dict(:libspatialindex => :libspatialindex)
