@@ -2,7 +2,8 @@ using BinDeps
 
 @BinDeps.setup
 
-libspatialindex = library_dependency("libspatialindex_c", aliases=["spatialindex_c-64"])
+libspatialindex = library_dependency("libspatialindex",
+    aliases=["libspatialindex_c", "spatialindex_c-64", "spatialindex_c"])
 version = v"1.8.5"
 
 if is_unix()
