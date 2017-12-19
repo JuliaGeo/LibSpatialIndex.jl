@@ -16,7 +16,7 @@ if is_unix()
             GetSources(libspatialindex)
             @build_steps begin
                 ChangeDirectory(srcdir)
-                `ls`
+                `./configure`
                 `make`
                 `make install`
             end
