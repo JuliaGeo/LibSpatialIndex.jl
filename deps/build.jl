@@ -10,7 +10,7 @@ provides(Sources, URI("http://download.osgeo.org/libspatialindex/spatialindex-sr
 
 prefix=joinpath(BinDeps.depsdir(libspatialindex),"usr")
 patchdir=BinDeps.depsdir(libspatialindex)
-srcdir = joinpath(BinDeps.depsdir(libspatialindex),"src",ipoptname)
+srcdir = joinpath(BinDeps.depsdir(libspatialindex),"src","spatialindex-src-$version")
 
 provides(SimpleBuild,
     (@build_steps begin
