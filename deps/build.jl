@@ -5,6 +5,9 @@ using BinDeps
 libspatialindex = library_dependency("libspatialindex", aliases=["spatialindex_c-64","libspatialindex_c"])
 version = v"1.8.5"
 
+provide(Sources, URI("http://download.osgeo.org/libspatialindex/spatialindex-src-$version.tar.gz"),
+    libspatialindex, os=:Unix)
+
 if is_windows()
     url = "http://download.osgeo.org/libspatialindex/"
     archive = "libspatialindex-$version-win-msvc-2013-x64.zip"
