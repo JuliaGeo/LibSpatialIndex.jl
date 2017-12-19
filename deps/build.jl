@@ -8,6 +8,20 @@ version = v"1.8.5"
 provides(Sources, URI("http://download.osgeo.org/libspatialindex/spatialindex-src-$version.tar.gz"),
     libspatialindex, os=:Unix)
 
+prefix=joinpath(BinDeps.depsdir(libspatialindex),"usr")
+patchdir=BinDeps.depsdir(libspatialindex)
+srcdir = joinpath(BinDeps.depsdir(libspatialindex),"src",ipoptname)
+
+provides(SimpleBuild,
+    (@build_steps begin
+        GetSources(libspatialindex)
+        @build_steps begin
+            ChangeDirectory(srcdir)
+            `make`
+            `make install`
+        end
+    end), libspatialindex, os=:Unix)
+
 if is_windows()
     url = "http://download.osgeo.org/libspatialindex/"
     archive = "libspatialindex-$version-win-msvc-2013-x64.zip"
