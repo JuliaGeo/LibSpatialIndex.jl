@@ -10,6 +10,7 @@ if is_unix()
     url = "http://download.osgeo.org/libspatialindex/"
     spatialindexname = "spatialindex-src-$version"
     srcdir = joinpath(BinDeps.depsdir(libspatialindex), "src", spatialindexname)
+    usrdir = joinpath(BinDeps.depsdir(libspatialindex), "usr")
     provides(Sources, URI("http://download.osgeo.org/libspatialindex/$spatialindexname.tar.gz"),
              libspatialindex, os=:Unix)
     provides(SimpleBuild,
@@ -17,7 +18,7 @@ if is_unix()
             GetSources(libspatialindex)
             @build_steps begin
                 ChangeDirectory(srcdir)
-                `./configure`
+                `./configure --prefix=$usrdir`
                 `make`
                 `make install`
             end
