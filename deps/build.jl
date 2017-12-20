@@ -5,7 +5,10 @@ using BinDeps
 const version = v"1.8.5"
 
 function version_check(name, handle)
-    fptr = Libdl.dlsym(handle, :SIDX_Version)
+    fptr = Libdl.dlsym_e(handle, :SIDX_Version)
+    if fptr == C_NULL  # lookup failure
+        return false
+    end
     versionptr = ccall(fptr, Cstring, ())
     versionstring = unsafe_string(versionptr)
     foundversion = convert(VersionNumber, versionstring)
