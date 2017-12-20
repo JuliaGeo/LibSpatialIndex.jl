@@ -47,9 +47,4 @@ if is_windows()
         unpacked_dir=".", installed_libpath=libpath, os=:Windows)
 end
 
-if is_apple()
-    using Homebrew
-    provides(Homebrew.HB, "spatialindex", libspatialindex, os = :Darwin)
-end
-
 @BinDeps.install Dict(:libspatialindex => :libspatialindex)
