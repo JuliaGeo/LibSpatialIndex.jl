@@ -24,7 +24,7 @@ if is_unix()
     spatialindexname = "spatialindex-src-$version"
     srcdir = joinpath(BinDeps.depsdir(libspatialindex), "src", spatialindexname)
     usrdir = joinpath(BinDeps.depsdir(libspatialindex), "usr")
-    provides(Sources, URI("http://download.osgeo.org/libspatialindex/$spatialindexname.tar.gz"),
+    provides(Sources, URI("$url$spatialindexname.tar.gz"),
              libspatialindex, os=:Unix)
     provides(SimpleBuild,
         (@build_steps begin
@@ -41,7 +41,7 @@ end
 if is_windows()
     url = "http://download.osgeo.org/libspatialindex/"
     archive = "libspatialindex-$version-win-msvc-2013-x64.zip"
-    uri = URI("http://download.osgeo.org/libspatialindex/$archive")
+    uri = URI("$url$archive")
     libpath = joinpath(BinDeps.depsdir(libspatialindex), "libspatialindex", "build", "bin")
     provides(Binaries, uri, libspatialindex,
         unpacked_dir=".", installed_libpath=libpath, os=:Windows)
