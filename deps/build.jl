@@ -2,9 +2,19 @@ using BinDeps
 
 @BinDeps.setup
 
+const version = v"1.8.5"
+
+function version_check(name, handle)
+    fptr = Libdl.dlsym(handle, :SIDX_Version)
+    versionptr = ccall(fptr, Cstring, ())
+    versionstring = unsafe_string(versionptr)
+    foundversion = convert(VersionNumber, versionstring)
+    foundversion >= version
+end
+
 libspatialindex = library_dependency("libspatialindex",
-    aliases=["libspatialindex_c", "spatialindex_c-64", "spatialindex_c"])
-version = v"1.8.5"
+    aliases=["libspatialindex_c", "spatialindex_c-64", "spatialindex_c"],
+    validate=version_check)
 
 if is_unix()
     url = "http://download.osgeo.org/libspatialindex/"
