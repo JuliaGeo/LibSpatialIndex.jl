@@ -38,6 +38,8 @@ end
     result = SI.insert!(rtree, 2, [0.,0.], [2.,2.])
     @test result == SI.C.RT_None
     @test SI.intersects(rtree, [0.,0.],[1.,1.]) == [1,2]
+    @test SI.intersects(rtree, [0.,0.]) == [1,2]
+    @test SI.intersects(rtree, [2.,2.]) == [2]
     @test SI.intersects(rtree, [1.5,1.5],[2.,2.]) == [2]
     @test sort(SI.knn(rtree, [2.,2.],[2.,2.], 1)) == [2]
     @test sort(SI.knn(rtree, [2.,2.],[2.,2.], 2)) == [1,2]

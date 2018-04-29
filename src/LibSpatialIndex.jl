@@ -189,6 +189,12 @@ module LibSpatialIndex
     end
 
     """
+    Returns a vector of `id`s corresponding to items in `rtree` that intersects
+    the coordinates specified by `point`.
+    """
+    intersects(rtree::RTree, point::Vector{Float64}) = intersects(rtree, point, point)
+
+    """
     Returns a vector of `id`s corresponding to the `k` items in `rtree`
     that are nearest to the box specified by `minvalues` and `maxvalues`.
 
