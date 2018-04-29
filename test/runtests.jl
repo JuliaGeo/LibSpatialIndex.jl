@@ -44,4 +44,6 @@ end
     @test sort(SI.knn(rtree, [2.,2.],[2.,2.], 1)) == [2]
     @test sort(SI.knn(rtree, [2.,2.],[2.,2.], 2)) == [1,2]
     @test sort(SI.knn(rtree, [2.,2.],[2.,2.], 3)) == [1,2]
+    @test sort(SI.knn(rtree, [2.,2.], 1)) == [2]
+    @test sort(SI.knn(rtree, [2.,2.], 2)) == [1,2]
 end

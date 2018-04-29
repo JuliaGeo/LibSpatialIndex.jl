@@ -200,7 +200,7 @@ module LibSpatialIndex
 
     Each item intersects the interval `[minvalues[i],maxvalues[i]]` for each
     axis `i` in 1, ..., `ndim`. If there are fewer than `k` items in `rtree`,
-    it will return less than `k` items. On the other hand, if there ties
+    it will return less than `k` items. On the other hand, if there are ties
     between some of the items, it might return more than `k` items.
     """
     function knn(
@@ -216,5 +216,15 @@ module LibSpatialIndex
         _checkresult(result, "Index_NearestNeighbors_id: Failed to evaluate")
         unsafe_wrap(Array, items[], nresults[])
     end
+
+    """
+    Returns a vector of `id`s corresponding to the `k` items in `rtree`
+    that are nearest to the box specified by `minvalues` and `maxvalues`.
+
+    If there are fewer than `k` items in `rtree`, it will return less than `k`
+    items. On the other hand, if there are ties between some of the items,
+    it might return more than `k` items.
+    """
+    knn(rtree::RTree, point::Vector{Float64}, k::Integer) = knn(rtree, point, point, k)
     
 end # module
