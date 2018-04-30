@@ -35,17 +35,27 @@ LibSpatialIndex.intersects(rtree, [0.,0.],[1.,1.])
 ```
 will return the vector `[1,2]` on the `rtree` constructed earlier, to indicate that items with ids `1` and `2` intersects the box specified by `[xmin=0.0,ymin=0.0]` and `[xmax=1.0,ymax=1.0]`.
 
+You can also perform queries on an individual point, so 
+```julia
+LibSpatialIndex.intersects(rtree, [1.,1.])
+```
+will return the ids `[1,2]` in the `rtree` constructed earlier, and
+```julia
+LibSpatialIndex.intersects(rtree, [2.,2.])
+```
+will only return the vector `[2]`, because item 1 does not contain the point `[2,2]`.
+
 ### k Nearest Neighbors
 For `knn` queries,
 ```julia
-LibSpatialIndex.knn(rtree, [2.,2.],[2.,2.], 1)
+LibSpatialIndex.knn(rtree, [2.,2.], 1)
 ```
-returns the vector `[2]` because the item with id `2` is closest to the box specified by `[xmin=2.0,ymin=2.0]` and `[xmax=2.0,ymax=2.0]`, and
+returns the vector `[2]` because the item with id `2` is closest to the point `[2.0, 2.0]`, and
 ```julia
-sort(LibSpatialIndex.knn(rtree, [2.,2.],[2.,2.], 2))
+sort(LibSpatialIndex.knn(rtree, [2.,2.], 2))
 ```
 returns the vector `[1,2]`. If the value of `k` exceeds the number of items in the `rtree`, then fewer than `k` items will be returned, so
 ```julia
-sort(SI.knn(rtree, [2.,2.],[2.,2.], 3))
+sort(SI.knn(rtree, [2.,2.], 3))
 ```
 will return the vector `[1,2]`.
