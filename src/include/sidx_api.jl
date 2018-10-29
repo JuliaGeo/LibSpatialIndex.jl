@@ -7,11 +7,11 @@ function Index_Create(properties::IndexPropertyH)
 end
 
 function Index_CreateWithStream(properties::IndexPropertyH, readNext)
-    ccall((:Index_CreateWithStream, libspatialindex), IndexH, (IndexPropertyH, Ptr{Void}), properties, readNext)
+    ccall((:Index_CreateWithStream, libspatialindex), IndexH, (IndexPropertyH, Ptr{Nothing}), properties, readNext)
 end
 
 function Index_Destroy(index::IndexH)
-    ccall((:Index_Destroy, libspatialindex), Void, (IndexH,), index)
+    ccall((:Index_Destroy, libspatialindex), Nothing, (IndexH,), index)
 end
 
 function Index_GetProperties(index::IndexH)
@@ -131,23 +131,23 @@ function Index_GetResultSetLimit(index::IndexH)
 end
 
 function Index_DestroyObjResults(results, nResults::UInt32)
-    ccall((:Index_DestroyObjResults, libspatialindex), Void, (Ptr{IndexItemH}, UInt32), results, nResults)
+    ccall((:Index_DestroyObjResults, libspatialindex), Nothing, (Ptr{IndexItemH}, UInt32), results, nResults)
 end
 
 function Index_ClearBuffer(index::IndexH)
-    ccall((:Index_ClearBuffer, libspatialindex), Void, (IndexH,), index)
+    ccall((:Index_ClearBuffer, libspatialindex), Nothing, (IndexH,), index)
 end
 
 function Index_Free(object)
-    ccall((:Index_Free, libspatialindex), Void, (Ptr{Void},), object)
+    ccall((:Index_Free, libspatialindex), Nothing, (Ptr{Nothing},), object)
 end
 
 function Index_Flush(index::IndexH)
-    ccall((:Index_Flush, libspatialindex), Void, (IndexH,), index)
+    ccall((:Index_Flush, libspatialindex), Nothing, (IndexH,), index)
 end
 
 function IndexItem_Destroy(item::IndexItemH)
-    ccall((:IndexItem_Destroy, libspatialindex), Void, (IndexItemH,), item)
+    ccall((:IndexItem_Destroy, libspatialindex), Nothing, (IndexItemH,), item)
 end
 
 function IndexItem_GetID(item::IndexItemH)
@@ -167,7 +167,7 @@ function IndexProperty_Create()
 end
 
 function IndexProperty_Destroy(hProp::IndexPropertyH)
-    ccall((:IndexProperty_Destroy, libspatialindex), Void, (IndexPropertyH,), hProp)
+    ccall((:IndexProperty_Destroy, libspatialindex), Nothing, (IndexPropertyH,), hProp)
 end
 
 function IndexProperty_SetIndexType(iprop::IndexPropertyH, value::RTIndexType)
@@ -363,11 +363,11 @@ function IndexProperty_GetCustomStorageCallbacksSize(iprop::IndexPropertyH)
 end
 
 function IndexProperty_SetCustomStorageCallbacks(iprop::IndexPropertyH, value)
-    ccall((:IndexProperty_SetCustomStorageCallbacks, libspatialindex), RTError, (IndexPropertyH, Ptr{Void}), iprop, value)
+    ccall((:IndexProperty_SetCustomStorageCallbacks, libspatialindex), RTError, (IndexPropertyH, Ptr{Nothing}), iprop, value)
 end
 
 function IndexProperty_GetCustomStorageCallbacks(iprop::IndexPropertyH)
-    ccall((:IndexProperty_GetCustomStorageCallbacks, libspatialindex), Ptr{Void}, (IndexPropertyH,), iprop)
+    ccall((:IndexProperty_GetCustomStorageCallbacks, libspatialindex), Ptr{Nothing}, (IndexPropertyH,), iprop)
 end
 
 function IndexProperty_SetIndexID(iprop::IndexPropertyH, value::Int64)
@@ -379,11 +379,11 @@ function IndexProperty_GetIndexID(iprop::IndexPropertyH)
 end
 
 function SIDX_NewBuffer(bytes::Cint)
-    ccall((:SIDX_NewBuffer, libspatialindex), Ptr{Void}, (Cint,), bytes)
+    ccall((:SIDX_NewBuffer, libspatialindex), Ptr{Nothing}, (Cint,), bytes)
 end
 
 function SIDX_DeleteBuffer(buffer)
-    ccall((:SIDX_DeleteBuffer, libspatialindex), Void, (Ptr{Void},), buffer)
+    ccall((:SIDX_DeleteBuffer, libspatialindex), Nothing, (Ptr{Nothing},), buffer)
 end
 
 function IndexProperty_SetResultSetLimit(iprop::IndexPropertyH, value::UInt64)

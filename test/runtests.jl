@@ -1,4 +1,6 @@
-using LibSpatialIndex, Base.Test; const SI = LibSpatialIndex
+using LibSpatialIndex
+using Test
+const SI = LibSpatialIndex
 
 @testset "Simple Tutorial" begin
     # based on https://github.com/libspatialindex/libspatialindex/wiki/Simple-Tutorial

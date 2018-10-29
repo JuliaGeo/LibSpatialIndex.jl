@@ -146,7 +146,7 @@ module LibSpatialIndex
                 regionpoolcapacity, pointpoolcapacity, tightMBR,
                 nearminimumoverlapfactor, fillfactor, splitdistributionfactor,
                 reinsertfactor)
-            finalizer(rtree, x -> (C.Index_Destroy(x.index); x.index = C_NULL))
+            finalizer( x -> (C.Index_Destroy(x.index); x.index = C_NULL), rtree)
             rtree
         end
     end
