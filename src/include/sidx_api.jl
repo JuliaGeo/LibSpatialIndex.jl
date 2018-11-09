@@ -1,403 +1,403 @@
-# Julia wrapper for header: /Users/yeesian/Downloads/libspatialindex-master/include/spatialindex/capi/sidx_api.h
+# Julia wrapper for header: /Users/yeesian/Downloads/libspatialindex_c-master/include/spatialindex/capi/sidx_api.h
 # Automatically generated using Clang.jl wrap_c, version 0.0.0
 
 
 function Index_Create(properties::IndexPropertyH)
-    ccall((:Index_Create, libspatialindex), IndexH, (IndexPropertyH,), properties)
+    ccall((:Index_Create, libspatialindex_c), IndexH, (IndexPropertyH,), properties)
 end
 
 function Index_CreateWithStream(properties::IndexPropertyH, readNext)
-    ccall((:Index_CreateWithStream, libspatialindex), IndexH, (IndexPropertyH, Ptr{Nothing}), properties, readNext)
+    ccall((:Index_CreateWithStream, libspatialindex_c), IndexH, (IndexPropertyH, Ptr{Nothing}), properties, readNext)
 end
 
 function Index_Destroy(index::IndexH)
-    ccall((:Index_Destroy, libspatialindex), Nothing, (IndexH,), index)
+    ccall((:Index_Destroy, libspatialindex_c), Nothing, (IndexH,), index)
 end
 
 function Index_GetProperties(index::IndexH)
-    ccall((:Index_GetProperties, libspatialindex), IndexPropertyH, (IndexH,), index)
+    ccall((:Index_GetProperties, libspatialindex_c), IndexPropertyH, (IndexH,), index)
 end
 
 function Index_DeleteData(index::IndexH, id::Int64, pdMin, pdMax, nDimension::UInt32)
-    ccall((:Index_DeleteData, libspatialindex), RTError, (IndexH, Int64, Ptr{Cdouble}, Ptr{Cdouble}, UInt32), index, id, pdMin, pdMax, nDimension)
+    ccall((:Index_DeleteData, libspatialindex_c), RTError, (IndexH, Int64, Ptr{Cdouble}, Ptr{Cdouble}, UInt32), index, id, pdMin, pdMax, nDimension)
 end
 
 function Index_DeleteTPData(index::IndexH, id::Int64, pdMin, pdMax, pdVMin, pdVMax, tStart::Cdouble, tEnd::Cdouble, nDimension::UInt32)
-    ccall((:Index_DeleteTPData, libspatialindex), RTError, (IndexH, Int64, Ptr{Cdouble}, Ptr{Cdouble}, Ptr{Cdouble}, Ptr{Cdouble}, Cdouble, Cdouble, UInt32), index, id, pdMin, pdMax, pdVMin, pdVMax, tStart, tEnd, nDimension)
+    ccall((:Index_DeleteTPData, libspatialindex_c), RTError, (IndexH, Int64, Ptr{Cdouble}, Ptr{Cdouble}, Ptr{Cdouble}, Ptr{Cdouble}, Cdouble, Cdouble, UInt32), index, id, pdMin, pdMax, pdVMin, pdVMax, tStart, tEnd, nDimension)
 end
 
 function Index_DeleteMVRData(index::IndexH, id::Int64, pdMin, pdMax, tStart::Cdouble, tEnd::Cdouble, nDimension::UInt32)
-    ccall((:Index_DeleteMVRData, libspatialindex), RTError, (IndexH, Int64, Ptr{Cdouble}, Ptr{Cdouble}, Cdouble, Cdouble, UInt32), index, id, pdMin, pdMax, tStart, tEnd, nDimension)
+    ccall((:Index_DeleteMVRData, libspatialindex_c), RTError, (IndexH, Int64, Ptr{Cdouble}, Ptr{Cdouble}, Cdouble, Cdouble, UInt32), index, id, pdMin, pdMax, tStart, tEnd, nDimension)
 end
 
 function Index_InsertData(index::IndexH, id::Int64, pdMin, pdMax, nDimension::UInt32, pData, nDataLength::Cint)
-    ccall((:Index_InsertData, libspatialindex), RTError, (IndexH, Int64, Ptr{Cdouble}, Ptr{Cdouble}, UInt32, Ptr{UInt8}, Cint), index, id, pdMin, pdMax, nDimension, pData, nDataLength)
+    ccall((:Index_InsertData, libspatialindex_c), RTError, (IndexH, Int64, Ptr{Cdouble}, Ptr{Cdouble}, UInt32, Ptr{UInt8}, Cint), index, id, pdMin, pdMax, nDimension, pData, nDataLength)
 end
 
 function Index_InsertTPData(index::IndexH, id::Int64, pdMin, pdMax, pdVMin, pdVMax, tStart::Cdouble, tEnd::Cdouble, nDimension::UInt32, pData, nDataLength::Cint)
-    ccall((:Index_InsertTPData, libspatialindex), RTError, (IndexH, Int64, Ptr{Cdouble}, Ptr{Cdouble}, Ptr{Cdouble}, Ptr{Cdouble}, Cdouble, Cdouble, UInt32, Ptr{UInt8}, Cint), index, id, pdMin, pdMax, pdVMin, pdVMax, tStart, tEnd, nDimension, pData, nDataLength)
+    ccall((:Index_InsertTPData, libspatialindex_c), RTError, (IndexH, Int64, Ptr{Cdouble}, Ptr{Cdouble}, Ptr{Cdouble}, Ptr{Cdouble}, Cdouble, Cdouble, UInt32, Ptr{UInt8}, Cint), index, id, pdMin, pdMax, pdVMin, pdVMax, tStart, tEnd, nDimension, pData, nDataLength)
 end
 
 function Index_InsertMVRData(index::IndexH, id::Int64, pdMin, pdMax, tStart::Cdouble, tEnd::Cdouble, nDimension::UInt32, pData, nDataLength::Cint)
-    ccall((:Index_InsertMVRData, libspatialindex), RTError, (IndexH, Int64, Ptr{Cdouble}, Ptr{Cdouble}, Cdouble, Cdouble, UInt32, Ptr{UInt8}, Cint), index, id, pdMin, pdMax, tStart, tEnd, nDimension, pData, nDataLength)
+    ccall((:Index_InsertMVRData, libspatialindex_c), RTError, (IndexH, Int64, Ptr{Cdouble}, Ptr{Cdouble}, Cdouble, Cdouble, UInt32, Ptr{UInt8}, Cint), index, id, pdMin, pdMax, tStart, tEnd, nDimension, pData, nDataLength)
 end
 
 function Index_IsValid(index::IndexH)
-    ccall((:Index_IsValid, libspatialindex), UInt32, (IndexH,), index)
+    ccall((:Index_IsValid, libspatialindex_c), UInt32, (IndexH,), index)
 end
 
 function Index_TPIntersects_obj(index::IndexH, pdMin, pdMax, pdVMin, pdVMax, tStart::Cdouble, tEnd::Cdouble, nDimension::UInt32, items, nResults)
-    ccall((:Index_TPIntersects_obj, libspatialindex), RTError, (IndexH, Ptr{Cdouble}, Ptr{Cdouble}, Ptr{Cdouble}, Ptr{Cdouble}, Cdouble, Cdouble, UInt32, Ptr{Ptr{IndexItemH}}, Ptr{UInt64}), index, pdMin, pdMax, pdVMin, pdVMax, tStart, tEnd, nDimension, items, nResults)
+    ccall((:Index_TPIntersects_obj, libspatialindex_c), RTError, (IndexH, Ptr{Cdouble}, Ptr{Cdouble}, Ptr{Cdouble}, Ptr{Cdouble}, Cdouble, Cdouble, UInt32, Ptr{Ptr{IndexItemH}}, Ptr{UInt64}), index, pdMin, pdMax, pdVMin, pdVMax, tStart, tEnd, nDimension, items, nResults)
 end
 
 function Index_MVRIntersects_obj(index::IndexH, pdMin, pdMax, tStart::Cdouble, tEnd::Cdouble, nDimension::UInt32, items, nResults)
-    ccall((:Index_MVRIntersects_obj, libspatialindex), RTError, (IndexH, Ptr{Cdouble}, Ptr{Cdouble}, Cdouble, Cdouble, UInt32, Ptr{Ptr{IndexItemH}}, Ptr{UInt64}), index, pdMin, pdMax, tStart, tEnd, nDimension, items, nResults)
+    ccall((:Index_MVRIntersects_obj, libspatialindex_c), RTError, (IndexH, Ptr{Cdouble}, Ptr{Cdouble}, Cdouble, Cdouble, UInt32, Ptr{Ptr{IndexItemH}}, Ptr{UInt64}), index, pdMin, pdMax, tStart, tEnd, nDimension, items, nResults)
 end
 
 function Index_Intersects_obj(index::IndexH, pdMin, pdMax, nDimension::UInt32, items, nResults)
-    ccall((:Index_Intersects_obj, libspatialindex), RTError, (IndexH, Ptr{Cdouble}, Ptr{Cdouble}, UInt32, Ptr{Ptr{IndexItemH}}, Ptr{UInt64}), index, pdMin, pdMax, nDimension, items, nResults)
+    ccall((:Index_Intersects_obj, libspatialindex_c), RTError, (IndexH, Ptr{Cdouble}, Ptr{Cdouble}, UInt32, Ptr{Ptr{IndexItemH}}, Ptr{UInt64}), index, pdMin, pdMax, nDimension, items, nResults)
 end
 
 function Index_TPIntersects_id(index::IndexH, pdMin, pdMax, pdVMin, pdVMax, tStart::Cdouble, tEnd::Cdouble, nDimension::UInt32, ids, nResults)
-    ccall((:Index_TPIntersects_id, libspatialindex), RTError, (IndexH, Ptr{Cdouble}, Ptr{Cdouble}, Ptr{Cdouble}, Ptr{Cdouble}, Cdouble, Cdouble, UInt32, Ptr{Ptr{Int64}}, Ptr{UInt64}), index, pdMin, pdMax, pdVMin, pdVMax, tStart, tEnd, nDimension, ids, nResults)
+    ccall((:Index_TPIntersects_id, libspatialindex_c), RTError, (IndexH, Ptr{Cdouble}, Ptr{Cdouble}, Ptr{Cdouble}, Ptr{Cdouble}, Cdouble, Cdouble, UInt32, Ptr{Ptr{Int64}}, Ptr{UInt64}), index, pdMin, pdMax, pdVMin, pdVMax, tStart, tEnd, nDimension, ids, nResults)
 end
 
 function Index_MVRIntersects_id(index::IndexH, pdMin, pdMax, tStart::Cdouble, tEnd::Cdouble, nDimension::UInt32, ids, nResults)
-    ccall((:Index_MVRIntersects_id, libspatialindex), RTError, (IndexH, Ptr{Cdouble}, Ptr{Cdouble}, Cdouble, Cdouble, UInt32, Ptr{Ptr{Int64}}, Ptr{UInt64}), index, pdMin, pdMax, tStart, tEnd, nDimension, ids, nResults)
+    ccall((:Index_MVRIntersects_id, libspatialindex_c), RTError, (IndexH, Ptr{Cdouble}, Ptr{Cdouble}, Cdouble, Cdouble, UInt32, Ptr{Ptr{Int64}}, Ptr{UInt64}), index, pdMin, pdMax, tStart, tEnd, nDimension, ids, nResults)
 end
 
 function Index_Intersects_id(index::IndexH, pdMin, pdMax, nDimension::UInt32, items, nResults)
-    ccall((:Index_Intersects_id, libspatialindex), RTError, (IndexH, Ptr{Cdouble}, Ptr{Cdouble}, UInt32, Ptr{Ptr{Int64}}, Ptr{UInt64}), index, pdMin, pdMax, nDimension, items, nResults)
+    ccall((:Index_Intersects_id, libspatialindex_c), RTError, (IndexH, Ptr{Cdouble}, Ptr{Cdouble}, UInt32, Ptr{Ptr{Int64}}, Ptr{UInt64}), index, pdMin, pdMax, nDimension, items, nResults)
 end
 
 function Index_TPIntersects_count(index::IndexH, pdMin, pdMax, pdVMin, pdVMax, tStart::Cdouble, tEnd::Cdouble, nDimension::UInt32, nResults)
-    ccall((:Index_TPIntersects_count, libspatialindex), RTError, (IndexH, Ptr{Cdouble}, Ptr{Cdouble}, Ptr{Cdouble}, Ptr{Cdouble}, Cdouble, Cdouble, UInt32, Ptr{UInt64}), index, pdMin, pdMax, pdVMin, pdVMax, tStart, tEnd, nDimension, nResults)
+    ccall((:Index_TPIntersects_count, libspatialindex_c), RTError, (IndexH, Ptr{Cdouble}, Ptr{Cdouble}, Ptr{Cdouble}, Ptr{Cdouble}, Cdouble, Cdouble, UInt32, Ptr{UInt64}), index, pdMin, pdMax, pdVMin, pdVMax, tStart, tEnd, nDimension, nResults)
 end
 
 function Index_MVRIntersects_count(index::IndexH, pdMin, pdMax, tStart::Cdouble, tEnd::Cdouble, nDimension::UInt32, nResults)
-    ccall((:Index_MVRIntersects_count, libspatialindex), RTError, (IndexH, Ptr{Cdouble}, Ptr{Cdouble}, Cdouble, Cdouble, UInt32, Ptr{UInt64}), index, pdMin, pdMax, tStart, tEnd, nDimension, nResults)
+    ccall((:Index_MVRIntersects_count, libspatialindex_c), RTError, (IndexH, Ptr{Cdouble}, Ptr{Cdouble}, Cdouble, Cdouble, UInt32, Ptr{UInt64}), index, pdMin, pdMax, tStart, tEnd, nDimension, nResults)
 end
 
 function Index_Intersects_count(index::IndexH, pdMin, pdMax, nDimension::UInt32, nResults)
-    ccall((:Index_Intersects_count, libspatialindex), RTError, (IndexH, Ptr{Cdouble}, Ptr{Cdouble}, UInt32, Ptr{UInt64}), index, pdMin, pdMax, nDimension, nResults)
+    ccall((:Index_Intersects_count, libspatialindex_c), RTError, (IndexH, Ptr{Cdouble}, Ptr{Cdouble}, UInt32, Ptr{UInt64}), index, pdMin, pdMax, nDimension, nResults)
 end
 
 function Index_TPNearestNeighbors_obj(index::IndexH, pdMin, pdMax, pdVMin, pdVMax, tStart::Cdouble, tEnd::Cdouble, nDimension::UInt32, items, nResults)
-    ccall((:Index_TPNearestNeighbors_obj, libspatialindex), RTError, (IndexH, Ptr{Cdouble}, Ptr{Cdouble}, Ptr{Cdouble}, Ptr{Cdouble}, Cdouble, Cdouble, UInt32, Ptr{Ptr{IndexItemH}}, Ptr{UInt64}), index, pdMin, pdMax, pdVMin, pdVMax, tStart, tEnd, nDimension, items, nResults)
+    ccall((:Index_TPNearestNeighbors_obj, libspatialindex_c), RTError, (IndexH, Ptr{Cdouble}, Ptr{Cdouble}, Ptr{Cdouble}, Ptr{Cdouble}, Cdouble, Cdouble, UInt32, Ptr{Ptr{IndexItemH}}, Ptr{UInt64}), index, pdMin, pdMax, pdVMin, pdVMax, tStart, tEnd, nDimension, items, nResults)
 end
 
 function Index_MVRNearestNeighbors_obj(index::IndexH, pdMin, pdMax, tStart::Cdouble, tEnd::Cdouble, nDimension::UInt32, items, nResults)
-    ccall((:Index_MVRNearestNeighbors_obj, libspatialindex), RTError, (IndexH, Ptr{Cdouble}, Ptr{Cdouble}, Cdouble, Cdouble, UInt32, Ptr{Ptr{IndexItemH}}, Ptr{UInt64}), index, pdMin, pdMax, tStart, tEnd, nDimension, items, nResults)
+    ccall((:Index_MVRNearestNeighbors_obj, libspatialindex_c), RTError, (IndexH, Ptr{Cdouble}, Ptr{Cdouble}, Cdouble, Cdouble, UInt32, Ptr{Ptr{IndexItemH}}, Ptr{UInt64}), index, pdMin, pdMax, tStart, tEnd, nDimension, items, nResults)
 end
 
 function Index_NearestNeighbors_obj(index::IndexH, pdMin, pdMax, nDimension::UInt32, items, nResults)
-    ccall((:Index_NearestNeighbors_obj, libspatialindex), RTError, (IndexH, Ptr{Cdouble}, Ptr{Cdouble}, UInt32, Ptr{Ptr{IndexItemH}}, Ptr{UInt64}), index, pdMin, pdMax, nDimension, items, nResults)
+    ccall((:Index_NearestNeighbors_obj, libspatialindex_c), RTError, (IndexH, Ptr{Cdouble}, Ptr{Cdouble}, UInt32, Ptr{Ptr{IndexItemH}}, Ptr{UInt64}), index, pdMin, pdMax, nDimension, items, nResults)
 end
 
 function Index_TPNearestNeighbors_id(index::IndexH, pdMin, pdMax, pdVMin, pdVMax, tStart::Cdouble, tEnd::Cdouble, nDimension::UInt32, ids, nResults)
-    ccall((:Index_TPNearestNeighbors_id, libspatialindex), RTError, (IndexH, Ptr{Cdouble}, Ptr{Cdouble}, Ptr{Cdouble}, Ptr{Cdouble}, Cdouble, Cdouble, UInt32, Ptr{Ptr{Int64}}, Ptr{UInt64}), index, pdMin, pdMax, pdVMin, pdVMax, tStart, tEnd, nDimension, ids, nResults)
+    ccall((:Index_TPNearestNeighbors_id, libspatialindex_c), RTError, (IndexH, Ptr{Cdouble}, Ptr{Cdouble}, Ptr{Cdouble}, Ptr{Cdouble}, Cdouble, Cdouble, UInt32, Ptr{Ptr{Int64}}, Ptr{UInt64}), index, pdMin, pdMax, pdVMin, pdVMax, tStart, tEnd, nDimension, ids, nResults)
 end
 
 function Index_MVRNearestNeighbors_id(index::IndexH, pdMin, pdMax, tStart::Cdouble, tEnd::Cdouble, nDimension::UInt32, ids, nResults)
-    ccall((:Index_MVRNearestNeighbors_id, libspatialindex), RTError, (IndexH, Ptr{Cdouble}, Ptr{Cdouble}, Cdouble, Cdouble, UInt32, Ptr{Ptr{Int64}}, Ptr{UInt64}), index, pdMin, pdMax, tStart, tEnd, nDimension, ids, nResults)
+    ccall((:Index_MVRNearestNeighbors_id, libspatialindex_c), RTError, (IndexH, Ptr{Cdouble}, Ptr{Cdouble}, Cdouble, Cdouble, UInt32, Ptr{Ptr{Int64}}, Ptr{UInt64}), index, pdMin, pdMax, tStart, tEnd, nDimension, ids, nResults)
 end
 
 function Index_NearestNeighbors_id(index::IndexH, pdMin, pdMax, nDimension::UInt32, items, nResults)
-    ccall((:Index_NearestNeighbors_id, libspatialindex), RTError, (IndexH, Ptr{Cdouble}, Ptr{Cdouble}, UInt32, Ptr{Ptr{Int64}}, Ptr{UInt64}), index, pdMin, pdMax, nDimension, items, nResults)
+    ccall((:Index_NearestNeighbors_id, libspatialindex_c), RTError, (IndexH, Ptr{Cdouble}, Ptr{Cdouble}, UInt32, Ptr{Ptr{Int64}}, Ptr{UInt64}), index, pdMin, pdMax, nDimension, items, nResults)
 end
 
 function Index_GetBounds(index::IndexH, ppdMin, ppdMax, nDimension)
-    ccall((:Index_GetBounds, libspatialindex), RTError, (IndexH, Ptr{Ptr{Cdouble}}, Ptr{Ptr{Cdouble}}, Ptr{UInt32}), index, ppdMin, ppdMax, nDimension)
+    ccall((:Index_GetBounds, libspatialindex_c), RTError, (IndexH, Ptr{Ptr{Cdouble}}, Ptr{Ptr{Cdouble}}, Ptr{UInt32}), index, ppdMin, ppdMax, nDimension)
 end
 
 function Index_GetLeaves(index::IndexH, nLeafNodes, nLeafSizes, nLeafIDs, nLeafChildIDs, pppdMin, pppdMax, nDimension)
-    ccall((:Index_GetLeaves, libspatialindex), RTError, (IndexH, Ptr{UInt32}, Ptr{Ptr{UInt32}}, Ptr{Ptr{Int64}}, Ptr{Ptr{Ptr{Int64}}}, Ptr{Ptr{Ptr{Cdouble}}}, Ptr{Ptr{Ptr{Cdouble}}}, Ptr{UInt32}), index, nLeafNodes, nLeafSizes, nLeafIDs, nLeafChildIDs, pppdMin, pppdMax, nDimension)
+    ccall((:Index_GetLeaves, libspatialindex_c), RTError, (IndexH, Ptr{UInt32}, Ptr{Ptr{UInt32}}, Ptr{Ptr{Int64}}, Ptr{Ptr{Ptr{Int64}}}, Ptr{Ptr{Ptr{Cdouble}}}, Ptr{Ptr{Ptr{Cdouble}}}, Ptr{UInt32}), index, nLeafNodes, nLeafSizes, nLeafIDs, nLeafChildIDs, pppdMin, pppdMax, nDimension)
 end
 
 function Index_SetResultSetOffset(index::IndexH, value::Int64)
-    ccall((:Index_SetResultSetOffset, libspatialindex), RTError, (IndexH, Int64), index, value)
+    ccall((:Index_SetResultSetOffset, libspatialindex_c), RTError, (IndexH, Int64), index, value)
 end
 
 function Index_GetResultSetOffset(index::IndexH)
-    ccall((:Index_GetResultSetOffset, libspatialindex), Int64, (IndexH,), index)
+    ccall((:Index_GetResultSetOffset, libspatialindex_c), Int64, (IndexH,), index)
 end
 
 function Index_SetResultSetLimit(index::IndexH, value::Int64)
-    ccall((:Index_SetResultSetLimit, libspatialindex), RTError, (IndexH, Int64), index, value)
+    ccall((:Index_SetResultSetLimit, libspatialindex_c), RTError, (IndexH, Int64), index, value)
 end
 
 function Index_GetResultSetLimit(index::IndexH)
-    ccall((:Index_GetResultSetLimit, libspatialindex), Int64, (IndexH,), index)
+    ccall((:Index_GetResultSetLimit, libspatialindex_c), Int64, (IndexH,), index)
 end
 
 function Index_DestroyObjResults(results, nResults::UInt32)
-    ccall((:Index_DestroyObjResults, libspatialindex), Nothing, (Ptr{IndexItemH}, UInt32), results, nResults)
+    ccall((:Index_DestroyObjResults, libspatialindex_c), Nothing, (Ptr{IndexItemH}, UInt32), results, nResults)
 end
 
 function Index_ClearBuffer(index::IndexH)
-    ccall((:Index_ClearBuffer, libspatialindex), Nothing, (IndexH,), index)
+    ccall((:Index_ClearBuffer, libspatialindex_c), Nothing, (IndexH,), index)
 end
 
 function Index_Free(object)
-    ccall((:Index_Free, libspatialindex), Nothing, (Ptr{Nothing},), object)
+    ccall((:Index_Free, libspatialindex_c), Nothing, (Ptr{Nothing},), object)
 end
 
 function Index_Flush(index::IndexH)
-    ccall((:Index_Flush, libspatialindex), Nothing, (IndexH,), index)
+    ccall((:Index_Flush, libspatialindex_c), Nothing, (IndexH,), index)
 end
 
 function IndexItem_Destroy(item::IndexItemH)
-    ccall((:IndexItem_Destroy, libspatialindex), Nothing, (IndexItemH,), item)
+    ccall((:IndexItem_Destroy, libspatialindex_c), Nothing, (IndexItemH,), item)
 end
 
 function IndexItem_GetID(item::IndexItemH)
-    ccall((:IndexItem_GetID, libspatialindex), Int64, (IndexItemH,), item)
+    ccall((:IndexItem_GetID, libspatialindex_c), Int64, (IndexItemH,), item)
 end
 
 function IndexItem_GetData(item::IndexItemH, data, length)
-    ccall((:IndexItem_GetData, libspatialindex), RTError, (IndexItemH, Ptr{Ptr{UInt8}}, Ptr{UInt64}), item, data, length)
+    ccall((:IndexItem_GetData, libspatialindex_c), RTError, (IndexItemH, Ptr{Ptr{UInt8}}, Ptr{UInt64}), item, data, length)
 end
 
 function IndexItem_GetBounds(item::IndexItemH, ppdMin, ppdMax, nDimension)
-    ccall((:IndexItem_GetBounds, libspatialindex), RTError, (IndexItemH, Ptr{Ptr{Cdouble}}, Ptr{Ptr{Cdouble}}, Ptr{UInt32}), item, ppdMin, ppdMax, nDimension)
+    ccall((:IndexItem_GetBounds, libspatialindex_c), RTError, (IndexItemH, Ptr{Ptr{Cdouble}}, Ptr{Ptr{Cdouble}}, Ptr{UInt32}), item, ppdMin, ppdMax, nDimension)
 end
 
 function IndexProperty_Create()
-    ccall((:IndexProperty_Create, libspatialindex), IndexPropertyH, ())
+    ccall((:IndexProperty_Create, libspatialindex_c), IndexPropertyH, ())
 end
 
 function IndexProperty_Destroy(hProp::IndexPropertyH)
-    ccall((:IndexProperty_Destroy, libspatialindex), Nothing, (IndexPropertyH,), hProp)
+    ccall((:IndexProperty_Destroy, libspatialindex_c), Nothing, (IndexPropertyH,), hProp)
 end
 
 function IndexProperty_SetIndexType(iprop::IndexPropertyH, value::RTIndexType)
-    ccall((:IndexProperty_SetIndexType, libspatialindex), RTError, (IndexPropertyH, RTIndexType), iprop, value)
+    ccall((:IndexProperty_SetIndexType, libspatialindex_c), RTError, (IndexPropertyH, RTIndexType), iprop, value)
 end
 
 function IndexProperty_GetIndexType(iprop::IndexPropertyH)
-    ccall((:IndexProperty_GetIndexType, libspatialindex), RTIndexType, (IndexPropertyH,), iprop)
+    ccall((:IndexProperty_GetIndexType, libspatialindex_c), RTIndexType, (IndexPropertyH,), iprop)
 end
 
 function IndexProperty_SetDimension(iprop::IndexPropertyH, value::UInt32)
-    ccall((:IndexProperty_SetDimension, libspatialindex), RTError, (IndexPropertyH, UInt32), iprop, value)
+    ccall((:IndexProperty_SetDimension, libspatialindex_c), RTError, (IndexPropertyH, UInt32), iprop, value)
 end
 
 function IndexProperty_GetDimension(iprop::IndexPropertyH)
-    ccall((:IndexProperty_GetDimension, libspatialindex), UInt32, (IndexPropertyH,), iprop)
+    ccall((:IndexProperty_GetDimension, libspatialindex_c), UInt32, (IndexPropertyH,), iprop)
 end
 
 function IndexProperty_SetIndexVariant(iprop::IndexPropertyH, value::RTIndexVariant)
-    ccall((:IndexProperty_SetIndexVariant, libspatialindex), RTError, (IndexPropertyH, RTIndexVariant), iprop, value)
+    ccall((:IndexProperty_SetIndexVariant, libspatialindex_c), RTError, (IndexPropertyH, RTIndexVariant), iprop, value)
 end
 
 function IndexProperty_GetIndexVariant(iprop::IndexPropertyH)
-    ccall((:IndexProperty_GetIndexVariant, libspatialindex), RTIndexVariant, (IndexPropertyH,), iprop)
+    ccall((:IndexProperty_GetIndexVariant, libspatialindex_c), RTIndexVariant, (IndexPropertyH,), iprop)
 end
 
 function IndexProperty_SetIndexStorage(iprop::IndexPropertyH, value::RTStorageType)
-    ccall((:IndexProperty_SetIndexStorage, libspatialindex), RTError, (IndexPropertyH, RTStorageType), iprop, value)
+    ccall((:IndexProperty_SetIndexStorage, libspatialindex_c), RTError, (IndexPropertyH, RTStorageType), iprop, value)
 end
 
 function IndexProperty_GetIndexStorage(iprop::IndexPropertyH)
-    ccall((:IndexProperty_GetIndexStorage, libspatialindex), RTStorageType, (IndexPropertyH,), iprop)
+    ccall((:IndexProperty_GetIndexStorage, libspatialindex_c), RTStorageType, (IndexPropertyH,), iprop)
 end
 
 function IndexProperty_SetPagesize(iprop::IndexPropertyH, value::UInt32)
-    ccall((:IndexProperty_SetPagesize, libspatialindex), RTError, (IndexPropertyH, UInt32), iprop, value)
+    ccall((:IndexProperty_SetPagesize, libspatialindex_c), RTError, (IndexPropertyH, UInt32), iprop, value)
 end
 
 function IndexProperty_GetPagesize(iprop::IndexPropertyH)
-    ccall((:IndexProperty_GetPagesize, libspatialindex), UInt32, (IndexPropertyH,), iprop)
+    ccall((:IndexProperty_GetPagesize, libspatialindex_c), UInt32, (IndexPropertyH,), iprop)
 end
 
 function IndexProperty_SetIndexCapacity(iprop::IndexPropertyH, value::UInt32)
-    ccall((:IndexProperty_SetIndexCapacity, libspatialindex), RTError, (IndexPropertyH, UInt32), iprop, value)
+    ccall((:IndexProperty_SetIndexCapacity, libspatialindex_c), RTError, (IndexPropertyH, UInt32), iprop, value)
 end
 
 function IndexProperty_GetIndexCapacity(iprop::IndexPropertyH)
-    ccall((:IndexProperty_GetIndexCapacity, libspatialindex), UInt32, (IndexPropertyH,), iprop)
+    ccall((:IndexProperty_GetIndexCapacity, libspatialindex_c), UInt32, (IndexPropertyH,), iprop)
 end
 
 function IndexProperty_SetLeafCapacity(iprop::IndexPropertyH, value::UInt32)
-    ccall((:IndexProperty_SetLeafCapacity, libspatialindex), RTError, (IndexPropertyH, UInt32), iprop, value)
+    ccall((:IndexProperty_SetLeafCapacity, libspatialindex_c), RTError, (IndexPropertyH, UInt32), iprop, value)
 end
 
 function IndexProperty_GetLeafCapacity(iprop::IndexPropertyH)
-    ccall((:IndexProperty_GetLeafCapacity, libspatialindex), UInt32, (IndexPropertyH,), iprop)
+    ccall((:IndexProperty_GetLeafCapacity, libspatialindex_c), UInt32, (IndexPropertyH,), iprop)
 end
 
 function IndexProperty_SetLeafPoolCapacity(iprop::IndexPropertyH, value::UInt32)
-    ccall((:IndexProperty_SetLeafPoolCapacity, libspatialindex), RTError, (IndexPropertyH, UInt32), iprop, value)
+    ccall((:IndexProperty_SetLeafPoolCapacity, libspatialindex_c), RTError, (IndexPropertyH, UInt32), iprop, value)
 end
 
 function IndexProperty_GetLeafPoolCapacity(iprop::IndexPropertyH)
-    ccall((:IndexProperty_GetLeafPoolCapacity, libspatialindex), UInt32, (IndexPropertyH,), iprop)
+    ccall((:IndexProperty_GetLeafPoolCapacity, libspatialindex_c), UInt32, (IndexPropertyH,), iprop)
 end
 
 function IndexProperty_SetIndexPoolCapacity(iprop::IndexPropertyH, value::UInt32)
-    ccall((:IndexProperty_SetIndexPoolCapacity, libspatialindex), RTError, (IndexPropertyH, UInt32), iprop, value)
+    ccall((:IndexProperty_SetIndexPoolCapacity, libspatialindex_c), RTError, (IndexPropertyH, UInt32), iprop, value)
 end
 
 function IndexProperty_GetIndexPoolCapacity(iprop::IndexPropertyH)
-    ccall((:IndexProperty_GetIndexPoolCapacity, libspatialindex), UInt32, (IndexPropertyH,), iprop)
+    ccall((:IndexProperty_GetIndexPoolCapacity, libspatialindex_c), UInt32, (IndexPropertyH,), iprop)
 end
 
 function IndexProperty_SetRegionPoolCapacity(iprop::IndexPropertyH, value::UInt32)
-    ccall((:IndexProperty_SetRegionPoolCapacity, libspatialindex), RTError, (IndexPropertyH, UInt32), iprop, value)
+    ccall((:IndexProperty_SetRegionPoolCapacity, libspatialindex_c), RTError, (IndexPropertyH, UInt32), iprop, value)
 end
 
 function IndexProperty_GetRegionPoolCapacity(iprop::IndexPropertyH)
-    ccall((:IndexProperty_GetRegionPoolCapacity, libspatialindex), UInt32, (IndexPropertyH,), iprop)
+    ccall((:IndexProperty_GetRegionPoolCapacity, libspatialindex_c), UInt32, (IndexPropertyH,), iprop)
 end
 
 function IndexProperty_SetPointPoolCapacity(iprop::IndexPropertyH, value::UInt32)
-    ccall((:IndexProperty_SetPointPoolCapacity, libspatialindex), RTError, (IndexPropertyH, UInt32), iprop, value)
+    ccall((:IndexProperty_SetPointPoolCapacity, libspatialindex_c), RTError, (IndexPropertyH, UInt32), iprop, value)
 end
 
 function IndexProperty_GetPointPoolCapacity(iprop::IndexPropertyH)
-    ccall((:IndexProperty_GetPointPoolCapacity, libspatialindex), UInt32, (IndexPropertyH,), iprop)
+    ccall((:IndexProperty_GetPointPoolCapacity, libspatialindex_c), UInt32, (IndexPropertyH,), iprop)
 end
 
 function IndexProperty_SetBufferingCapacity(iprop::IndexPropertyH, value::UInt32)
-    ccall((:IndexProperty_SetBufferingCapacity, libspatialindex), RTError, (IndexPropertyH, UInt32), iprop, value)
+    ccall((:IndexProperty_SetBufferingCapacity, libspatialindex_c), RTError, (IndexPropertyH, UInt32), iprop, value)
 end
 
 function IndexProperty_GetBufferingCapacity(iprop::IndexPropertyH)
-    ccall((:IndexProperty_GetBufferingCapacity, libspatialindex), UInt32, (IndexPropertyH,), iprop)
+    ccall((:IndexProperty_GetBufferingCapacity, libspatialindex_c), UInt32, (IndexPropertyH,), iprop)
 end
 
 function IndexProperty_SetEnsureTightMBRs(iprop::IndexPropertyH, value::UInt32)
-    ccall((:IndexProperty_SetEnsureTightMBRs, libspatialindex), RTError, (IndexPropertyH, UInt32), iprop, value)
+    ccall((:IndexProperty_SetEnsureTightMBRs, libspatialindex_c), RTError, (IndexPropertyH, UInt32), iprop, value)
 end
 
 function IndexProperty_GetEnsureTightMBRs(iprop::IndexPropertyH)
-    ccall((:IndexProperty_GetEnsureTightMBRs, libspatialindex), UInt32, (IndexPropertyH,), iprop)
+    ccall((:IndexProperty_GetEnsureTightMBRs, libspatialindex_c), UInt32, (IndexPropertyH,), iprop)
 end
 
 function IndexProperty_SetOverwrite(iprop::IndexPropertyH, value::UInt32)
-    ccall((:IndexProperty_SetOverwrite, libspatialindex), RTError, (IndexPropertyH, UInt32), iprop, value)
+    ccall((:IndexProperty_SetOverwrite, libspatialindex_c), RTError, (IndexPropertyH, UInt32), iprop, value)
 end
 
 function IndexProperty_GetOverwrite(iprop::IndexPropertyH)
-    ccall((:IndexProperty_GetOverwrite, libspatialindex), UInt32, (IndexPropertyH,), iprop)
+    ccall((:IndexProperty_GetOverwrite, libspatialindex_c), UInt32, (IndexPropertyH,), iprop)
 end
 
 function IndexProperty_SetNearMinimumOverlapFactor(iprop::IndexPropertyH, value::UInt32)
-    ccall((:IndexProperty_SetNearMinimumOverlapFactor, libspatialindex), RTError, (IndexPropertyH, UInt32), iprop, value)
+    ccall((:IndexProperty_SetNearMinimumOverlapFactor, libspatialindex_c), RTError, (IndexPropertyH, UInt32), iprop, value)
 end
 
 function IndexProperty_GetNearMinimumOverlapFactor(iprop::IndexPropertyH)
-    ccall((:IndexProperty_GetNearMinimumOverlapFactor, libspatialindex), UInt32, (IndexPropertyH,), iprop)
+    ccall((:IndexProperty_GetNearMinimumOverlapFactor, libspatialindex_c), UInt32, (IndexPropertyH,), iprop)
 end
 
 function IndexProperty_SetWriteThrough(iprop::IndexPropertyH, value::UInt32)
-    ccall((:IndexProperty_SetWriteThrough, libspatialindex), RTError, (IndexPropertyH, UInt32), iprop, value)
+    ccall((:IndexProperty_SetWriteThrough, libspatialindex_c), RTError, (IndexPropertyH, UInt32), iprop, value)
 end
 
 function IndexProperty_GetWriteThrough(iprop::IndexPropertyH)
-    ccall((:IndexProperty_GetWriteThrough, libspatialindex), UInt32, (IndexPropertyH,), iprop)
+    ccall((:IndexProperty_GetWriteThrough, libspatialindex_c), UInt32, (IndexPropertyH,), iprop)
 end
 
 function IndexProperty_SetFillFactor(iprop::IndexPropertyH, value::Cdouble)
-    ccall((:IndexProperty_SetFillFactor, libspatialindex), RTError, (IndexPropertyH, Cdouble), iprop, value)
+    ccall((:IndexProperty_SetFillFactor, libspatialindex_c), RTError, (IndexPropertyH, Cdouble), iprop, value)
 end
 
 function IndexProperty_GetFillFactor(iprop::IndexPropertyH)
-    ccall((:IndexProperty_GetFillFactor, libspatialindex), Cdouble, (IndexPropertyH,), iprop)
+    ccall((:IndexProperty_GetFillFactor, libspatialindex_c), Cdouble, (IndexPropertyH,), iprop)
 end
 
 function IndexProperty_SetSplitDistributionFactor(iprop::IndexPropertyH, value::Cdouble)
-    ccall((:IndexProperty_SetSplitDistributionFactor, libspatialindex), RTError, (IndexPropertyH, Cdouble), iprop, value)
+    ccall((:IndexProperty_SetSplitDistributionFactor, libspatialindex_c), RTError, (IndexPropertyH, Cdouble), iprop, value)
 end
 
 function IndexProperty_GetSplitDistributionFactor(iprop::IndexPropertyH)
-    ccall((:IndexProperty_GetSplitDistributionFactor, libspatialindex), Cdouble, (IndexPropertyH,), iprop)
+    ccall((:IndexProperty_GetSplitDistributionFactor, libspatialindex_c), Cdouble, (IndexPropertyH,), iprop)
 end
 
 function IndexProperty_SetTPRHorizon(iprop::IndexPropertyH, value::Cdouble)
-    ccall((:IndexProperty_SetTPRHorizon, libspatialindex), RTError, (IndexPropertyH, Cdouble), iprop, value)
+    ccall((:IndexProperty_SetTPRHorizon, libspatialindex_c), RTError, (IndexPropertyH, Cdouble), iprop, value)
 end
 
 function IndexProperty_GetTPRHorizon(iprop::IndexPropertyH)
-    ccall((:IndexProperty_GetTPRHorizon, libspatialindex), Cdouble, (IndexPropertyH,), iprop)
+    ccall((:IndexProperty_GetTPRHorizon, libspatialindex_c), Cdouble, (IndexPropertyH,), iprop)
 end
 
 function IndexProperty_SetReinsertFactor(iprop::IndexPropertyH, value::Cdouble)
-    ccall((:IndexProperty_SetReinsertFactor, libspatialindex), RTError, (IndexPropertyH, Cdouble), iprop, value)
+    ccall((:IndexProperty_SetReinsertFactor, libspatialindex_c), RTError, (IndexPropertyH, Cdouble), iprop, value)
 end
 
 function IndexProperty_GetReinsertFactor(iprop::IndexPropertyH)
-    ccall((:IndexProperty_GetReinsertFactor, libspatialindex), Cdouble, (IndexPropertyH,), iprop)
+    ccall((:IndexProperty_GetReinsertFactor, libspatialindex_c), Cdouble, (IndexPropertyH,), iprop)
 end
 
 function IndexProperty_SetFileName(iprop::IndexPropertyH, value)
-    ccall((:IndexProperty_SetFileName, libspatialindex), RTError, (IndexPropertyH, Cstring), iprop, value)
+    ccall((:IndexProperty_SetFileName, libspatialindex_c), RTError, (IndexPropertyH, Cstring), iprop, value)
 end
 
 function IndexProperty_GetFileName(iprop::IndexPropertyH)
-    ccall((:IndexProperty_GetFileName, libspatialindex), Cstring, (IndexPropertyH,), iprop)
+    ccall((:IndexProperty_GetFileName, libspatialindex_c), Cstring, (IndexPropertyH,), iprop)
 end
 
 function IndexProperty_SetFileNameExtensionDat(iprop::IndexPropertyH, value)
-    ccall((:IndexProperty_SetFileNameExtensionDat, libspatialindex), RTError, (IndexPropertyH, Cstring), iprop, value)
+    ccall((:IndexProperty_SetFileNameExtensionDat, libspatialindex_c), RTError, (IndexPropertyH, Cstring), iprop, value)
 end
 
 function IndexProperty_GetFileNameExtensionDat(iprop::IndexPropertyH)
-    ccall((:IndexProperty_GetFileNameExtensionDat, libspatialindex), Cstring, (IndexPropertyH,), iprop)
+    ccall((:IndexProperty_GetFileNameExtensionDat, libspatialindex_c), Cstring, (IndexPropertyH,), iprop)
 end
 
 function IndexProperty_SetFileNameExtensionIdx(iprop::IndexPropertyH, value)
-    ccall((:IndexProperty_SetFileNameExtensionIdx, libspatialindex), RTError, (IndexPropertyH, Cstring), iprop, value)
+    ccall((:IndexProperty_SetFileNameExtensionIdx, libspatialindex_c), RTError, (IndexPropertyH, Cstring), iprop, value)
 end
 
 function IndexProperty_GetFileNameExtensionIdx(iprop::IndexPropertyH)
-    ccall((:IndexProperty_GetFileNameExtensionIdx, libspatialindex), Cstring, (IndexPropertyH,), iprop)
+    ccall((:IndexProperty_GetFileNameExtensionIdx, libspatialindex_c), Cstring, (IndexPropertyH,), iprop)
 end
 
 function IndexProperty_SetCustomStorageCallbacksSize(iprop::IndexPropertyH, value::UInt32)
-    ccall((:IndexProperty_SetCustomStorageCallbacksSize, libspatialindex), RTError, (IndexPropertyH, UInt32), iprop, value)
+    ccall((:IndexProperty_SetCustomStorageCallbacksSize, libspatialindex_c), RTError, (IndexPropertyH, UInt32), iprop, value)
 end
 
 function IndexProperty_GetCustomStorageCallbacksSize(iprop::IndexPropertyH)
-    ccall((:IndexProperty_GetCustomStorageCallbacksSize, libspatialindex), UInt32, (IndexPropertyH,), iprop)
+    ccall((:IndexProperty_GetCustomStorageCallbacksSize, libspatialindex_c), UInt32, (IndexPropertyH,), iprop)
 end
 
 function IndexProperty_SetCustomStorageCallbacks(iprop::IndexPropertyH, value)
-    ccall((:IndexProperty_SetCustomStorageCallbacks, libspatialindex), RTError, (IndexPropertyH, Ptr{Nothing}), iprop, value)
+    ccall((:IndexProperty_SetCustomStorageCallbacks, libspatialindex_c), RTError, (IndexPropertyH, Ptr{Nothing}), iprop, value)
 end
 
 function IndexProperty_GetCustomStorageCallbacks(iprop::IndexPropertyH)
-    ccall((:IndexProperty_GetCustomStorageCallbacks, libspatialindex), Ptr{Nothing}, (IndexPropertyH,), iprop)
+    ccall((:IndexProperty_GetCustomStorageCallbacks, libspatialindex_c), Ptr{Nothing}, (IndexPropertyH,), iprop)
 end
 
 function IndexProperty_SetIndexID(iprop::IndexPropertyH, value::Int64)
-    ccall((:IndexProperty_SetIndexID, libspatialindex), RTError, (IndexPropertyH, Int64), iprop, value)
+    ccall((:IndexProperty_SetIndexID, libspatialindex_c), RTError, (IndexPropertyH, Int64), iprop, value)
 end
 
 function IndexProperty_GetIndexID(iprop::IndexPropertyH)
-    ccall((:IndexProperty_GetIndexID, libspatialindex), Int64, (IndexPropertyH,), iprop)
+    ccall((:IndexProperty_GetIndexID, libspatialindex_c), Int64, (IndexPropertyH,), iprop)
 end
 
 function SIDX_NewBuffer(bytes::Cint)
-    ccall((:SIDX_NewBuffer, libspatialindex), Ptr{Nothing}, (Cint,), bytes)
+    ccall((:SIDX_NewBuffer, libspatialindex_c), Ptr{Nothing}, (Cint,), bytes)
 end
 
 function SIDX_DeleteBuffer(buffer)
-    ccall((:SIDX_DeleteBuffer, libspatialindex), Nothing, (Ptr{Nothing},), buffer)
+    ccall((:SIDX_DeleteBuffer, libspatialindex_c), Nothing, (Ptr{Nothing},), buffer)
 end
 
 function IndexProperty_SetResultSetLimit(iprop::IndexPropertyH, value::UInt64)
-    ccall((:IndexProperty_SetResultSetLimit, libspatialindex), RTError, (IndexPropertyH, UInt64), iprop, value)
+    ccall((:IndexProperty_SetResultSetLimit, libspatialindex_c), RTError, (IndexPropertyH, UInt64), iprop, value)
 end
 
 function IndexProperty_GetResultSetLimit(iprop::IndexPropertyH)
-    ccall((:IndexProperty_GetResultSetLimit, libspatialindex), UInt64, (IndexPropertyH,), iprop)
+    ccall((:IndexProperty_GetResultSetLimit, libspatialindex_c), UInt64, (IndexPropertyH,), iprop)
 end
 
 function SIDX_Version()
-    ccall((:SIDX_Version, libspatialindex), Cstring, ())
+    ccall((:SIDX_Version, libspatialindex_c), Cstring, ())
 end
 
 function Error_GetLastErrorMsg()
-    ccall((:Error_GetLastErrorMsg, libspatialindex), Cstring, ())
+    ccall((:Error_GetLastErrorMsg, libspatialindex_c), Cstring, ())
 end
