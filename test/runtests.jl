@@ -21,7 +21,7 @@ const SI = LibSpatialIndex
     min = [0.0, 0.0]
     max = [1.0, 1.0]
     ndims = UInt32(2)
-    nresults = Ref{UInt}()
+    nresults = Ref{UInt64}()
     SI.C.Index_Intersects_count(idx, min, max, ndims, nresults)
     @test nresults[] == 1
 
