@@ -15,7 +15,7 @@ const SI = LibSpatialIndex
     # load()
     min = [0.5, 0.5]
     max = [0.5, 0.5]
-    SI.C.Index_InsertData(idx, 1, min, max, UInt32(2), Ptr{UInt8}(C_NULL), Int32(0))
+    SI.C.Index_InsertData(idx, 1, min, max, 2, Ptr{UInt8}(C_NULL), 0)
 
     # query()
     min = [0.0, 0.0]
