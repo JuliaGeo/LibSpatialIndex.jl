@@ -1,4 +1,6 @@
-using LibSpatialIndex, Base.Test; const SI = LibSpatialIndex
+using LibSpatialIndex
+using Test
+const SI = LibSpatialIndex
 
 @testset "Simple Tutorial" begin
     # based on https://github.com/libspatialindex/libspatialindex/wiki/Simple-Tutorial
@@ -13,13 +15,13 @@ using LibSpatialIndex, Base.Test; const SI = LibSpatialIndex
     # load()
     min = [0.5, 0.5]
     max = [0.5, 0.5]
-    SI.C.Index_InsertData(idx, 1, min, max, UInt32(2), Ptr{UInt8}(C_NULL), Int32(0))
+    SI.C.Index_InsertData(idx, 1, min, max, 2, Ptr{UInt8}(C_NULL), 0)
 
     # query()
     min = [0.0, 0.0]
     max = [1.0, 1.0]
     ndims = UInt32(2)
-    nresults = Ref{UInt}()
+    nresults = Ref{UInt64}()
     SI.C.Index_Intersects_count(idx, min, max, ndims, nresults)
     @test nresults[] == 1
 

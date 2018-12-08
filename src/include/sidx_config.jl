@@ -3,6 +3,6 @@
 @enum RTStorageType::Int32 RT_Memory = 0 RT_Disk = 1 RT_Custom = 2 RT_InvalidStorageType = -99
 @enum RTIndexVariant::Int32 RT_Linear = 0 RT_Quadratic = 1 RT_Star = 2 RT_InvalidIndexVariant = -99
 
-IndexH = Ptr{Void}
-IndexItemH = Ptr{Void}
-IndexPropertyH = Ptr{Void}
+IndexH = Ptr{Nothing}
+IndexItemH = Ptr{Nothing}
+IndexPropertyH = Ptr{Nothing}
