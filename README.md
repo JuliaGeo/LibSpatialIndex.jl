@@ -1,10 +1,10 @@
 # LibSpatialIndex
 
-[![Build Status](https://travis-ci.org/yeesian/LibSpatialIndex.jl.svg?branch=master)](https://travis-ci.org/yeesian/LibSpatialIndex.jl)
+[![Build Status](https://travis-ci.org/JuliaGeo/LibSpatialIndex.jl.svg?branch=master)](https://travis-ci.org/JuliaGeo/LibSpatialIndex.jl)
 
-[![Coverage Status](https://coveralls.io/repos/yeesian/LibSpatialIndex.jl/badge.svg?branch=master&service=github)](https://coveralls.io/github/yeesian/LibSpatialIndex.jl?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/JuliaGeo/LibSpatialIndex.jl/badge.svg?branch=master&service=github)](https://coveralls.io/github/JuliaGeo/LibSpatialIndex.jl?branch=master)
 
-[![codecov.io](http://codecov.io/github/yeesian/LibSpatialIndex.jl/coverage.svg?branch=master)](http://codecov.io/github/yeesian/LibSpatialIndex.jl?branch=master)
+[![codecov.io](https://codecov.io/github/JuliaGeo/LibSpatialIndex.jl/branch/master/graph/badge.svg)](https://codecov.io/github/JuliaGeo/LibSpatialIndex.jl?branch=master)
 
 # Quick Guide
 
