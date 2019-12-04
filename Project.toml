@@ -1,0 +1,17 @@
+name = "LibSpatialIndex"
+uuid = "f19c2e90-9d16-5f2d-a2a7-af3fb29e4907"
+license = "MIT"
+version = "0.2.0"
+
+[deps]
+BinaryProvider = "b99e7846-7c00-51b0-8f62-c81ae34c0232"
+
+[compat]
+BinaryProvider = "0.5"
+julia = "1"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
