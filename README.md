@@ -1,6 +1,7 @@
 # LibSpatialIndex
 
-[![Build Status](https://travis-ci.com/JuliaGeo/LibSpatialIndex.jl.svg?branch=master)](https://travis-ci.com/JuliaGeo/LibSpatialIndex.jl) [![Coverage Status](https://coveralls.io/repos/github/JuliaGeo/LibSpatialIndex.jl/badge.svg?branch=master&service=github)](https://coveralls.io/github/JuliaGeo/LibSpatialIndex.jl?branch=master)
+[![CI](https://github.com/JuliaGeo/LibSpatialIndex.jl/workflows/CI/badge.svg)](https://github.com/JuliaGeo/LibSpatialIndex.jl/actions?query=workflow%3ACI)
+[![Coverage Status](https://coveralls.io/repos/github/JuliaGeo/LibSpatialIndex.jl/badge.svg?branch=master&service=github)](https://coveralls.io/github/JuliaGeo/LibSpatialIndex.jl?branch=master)
 
 LibSpatialIndex.jl is a julia wrapper around the C API of [libspatialindex](https://github.com/libspatialindex/libspatialindex), for spatially indexing kD bounding box data.  The Julia library (JLL) package is produced by the script at https://github.com/JuliaPackaging/Yggdrasil/tree/master/L/LibSpatialIndex and the resulting binary artifact is downloaded from https://github.com/JuliaBinaryWrappers/LibSpatialIndex_jll.jl.
 
