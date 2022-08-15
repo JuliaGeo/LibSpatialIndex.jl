@@ -29,8 +29,10 @@ const SI = LibSpatialIndex
     pmins = zeros(2)
     pmaxs = zeros(2)
     ndims = Ref{UInt32}()
-    SI.C.Index_GetBounds(idx, pointer(pmins), pointer(pmaxs), ndims);
+    SI.C.Index_GetBounds(idx, pointer_from_objref(pmins), pointer_from_objref(pmaxs), ndims);
     @test ndims[] == 2
+    @test isapprox(pmins, [0.5, 0.5])
+    @test isapprox(pmaxs, [0.5, 0.5])
 end
 
 @testset "Simple Operations" begin
