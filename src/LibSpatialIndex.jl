@@ -165,11 +165,12 @@ module LibSpatialIndex
 
     Inserts an item into the `rtree` with given `id` and boundingbox specified
     by `minvalues` and `maxvalues`, where the item lies within the interval
-    `[minvalues[i], maxvalues[i]]` for each axis `i` in 1, ..., `ndim`.
+    `[minvalues[i], maxvalues[i]]` for each axis `i` in 1, ..., `ndim`, 
+    or similar for the `Extent` of `obj`.
 
-    If instead `obj` is passed it will be detected as a `GeoInterface.PointTrait`
+    If `obj` is passed it will be detected as a `GeoInterface.PointTrait`
     and used as a point, or otherwise `GeoInterface.extent` will be called to 
-    detect or calculate the objects extent, falling back to `Extents.extent`.
+    detect or calculate the objects `Extent`, falling back to `Extents.extent`.
 
     In these cases `minvalues` and `maxvalues` are taken from the point or extent.
     """
@@ -198,12 +199,12 @@ module LibSpatialIndex
     Returns a vector of `id`s corresponding to items in `rtree` that intersects
     the box specified by `minvalues` and `maxvalues`.
 
-    Each item intersects the interval `[minvalues[i],maxvalues[i]]` for each
-    axis `i` in 1, ..., `ndim`.
+    Each item intersects the interval `[minvalues[i], maxvalues[i]]` for each
+    axis `i` in 1, ..., `ndim`, or similar for the `Extent` of `obj`.
 
-    If instead `obj` is passed it will be detected as a `GeoInterface.PointTrait`
+    If `obj` is passed it will be detected as a `GeoInterface.PointTrait`
     and used as a point, or otherwise `GeoInterface.extent` will be called to 
-    detect or calculate the objects extent, falling back to `Extents.extent`.
+    detect or calculate the objects `Extent`, falling back to `Extents.extent`.
 
     In these cases `minvalues` and `maxvalues` are taken from the point or extent.
     """
@@ -241,15 +242,16 @@ module LibSpatialIndex
 
     Returns a vector of `id`s corresponding to the `k` items in `rtree`
     that are nearest to the box specified by `minvalues` and `maxvalues`.
-
     Each item intersects the interval `[minvalues[i], maxvalues[i]]` for each
-    axis `i` in 1, ..., `ndim`. If there are fewer than `k` items in `rtree`,
+    axis `i` in 1, ..., `ndim`, or similar for the `Extent` of `obj`.
+
+    If there are fewer than `k` items in `rtree`,
     it will return less than `k` items. On the other hand, if there are ties
     between some of the items, it might return more than `k` items.
 
-    If instead `obj` is passed it will be detected as a `GeoInterface.PointTrait`
+    If `obj` is passed it will be detected as a `GeoInterface.PointTrait`
     and used as a point, or otherwise `GeoInterface.extent` will be called to 
-    detect or calculate the objects extent, falling back to `Extents.extent`.
+    detect or calculate the objects `Extent`, falling back to `Extents.extent`.
 
     In these cases `minvalues` and `maxvalues` are taken from the point or extent.
     """
