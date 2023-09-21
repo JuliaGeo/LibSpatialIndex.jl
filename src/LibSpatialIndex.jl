@@ -46,7 +46,7 @@ module LibSpatialIndex
     * `fillfactor`: The fill factor. Default is `0.7`.
     * `splitdistributionfactor`: Default is `0.4`.
     * `reinsertfactor`: Default is `0.3`.
-    
+
     # Performance
 
     Dataset size, data density, etc. have nothing to do with capacity and page
@@ -165,11 +165,11 @@ module LibSpatialIndex
 
     Inserts an item into the `rtree` with given `id` and boundingbox specified
     by `minvalues` and `maxvalues`, where the item lies within the interval
-    `[minvalues[i], maxvalues[i]]` for each axis `i` in 1, ..., `ndim`, 
+    `[minvalues[i], maxvalues[i]]` for each axis `i` in 1, ..., `ndim`,
     or similar for the `Extent` of `obj`.
 
     If `obj` is passed it will be detected as a `GeoInterface.PointTrait`
-    and used as a point, or otherwise `GeoInterface.extent` will be called to 
+    and used as a point, or otherwise `GeoInterface.extent` will be called to
     detect or calculate the objects `Extent`, falling back to `Extents.extent`.
 
     In these cases `minvalues` and `maxvalues` are taken from the point or extent.
@@ -203,7 +203,7 @@ module LibSpatialIndex
     axis `i` in 1, ..., `ndim`, or similar for the `Extent` of `obj`.
 
     If `obj` is passed it will be detected as a `GeoInterface.PointTrait`
-    and used as a point, or otherwise `GeoInterface.extent` will be called to 
+    and used as a point, or otherwise `GeoInterface.extent` will be called to
     detect or calculate the objects `Extent`, falling back to `Extents.extent`.
 
     In these cases `minvalues` and `maxvalues` are taken from the point or extent.
@@ -230,7 +230,6 @@ module LibSpatialIndex
         end
     end
     function intersects(rtree::RTree, extent::GI.Extent)
-        @show extent
         intersects(rtree::RTree, _ext2vecs(extent)...)
     end
     intersects(rtree::RTree, ::Nothing) = _not_point_or_ext_error()
@@ -250,7 +249,7 @@ module LibSpatialIndex
     between some of the items, it might return more than `k` items.
 
     If `obj` is passed it will be detected as a `GeoInterface.PointTrait`
-    and used as a point, or otherwise `GeoInterface.extent` will be called to 
+    and used as a point, or otherwise `GeoInterface.extent` will be called to
     detect or calculate the objects `Extent`, falling back to `Extents.extent`.
 
     In these cases `minvalues` and `maxvalues` are taken from the point or extent.
@@ -271,7 +270,7 @@ module LibSpatialIndex
     knn(rtree::RTree, point::Vector{Float64}, k::Integer) = knn(rtree, point, point, k)
     knn(rtree::RTree, extent::GI.Extent, k::Integer) = knn(rtree::RTree, _ext2vecs(extent)..., k)
     knn(rtree::RTree, extent::Nothing, k::Integer) = _not_point_or_ext_error()
-    function knn(rtree::RTree, obj, k::Integer) 
+    function knn(rtree::RTree, obj, k::Integer)
         if GI.trait(obj) isa GI.PointTrait
             knn(rtree, _point2vec(obj), k)
         else
@@ -284,9 +283,9 @@ module LibSpatialIndex
         haskey(ex, :X) && haskey(ex, :Y) || throw(ArgumentError("Extent does not have X and Y keys"))
 
         min, max = if haskey(ex, :Z)
-            Float64[ex.X[1], ex.Y[1], ex.Z[1]], Float64[ex.X[2], ex.Y[2], ex.Z[1]] 
+            Float64[ex.X[1], ex.Y[1], ex.Z[1]], Float64[ex.X[2], ex.Y[2], ex.Z[1]]
         else
-            Float64[ex.X[1], ex.Y[1]], Float64[ex.X[2], ex.Y[2]] 
+            Float64[ex.X[1], ex.Y[1]], Float64[ex.X[2], ex.Y[2]]
         end
 
         return min, max
@@ -301,5 +300,5 @@ module LibSpatialIndex
     end
 
     _not_point_or_ext_error() = throw(ArgumentError("object is not a point, and does not have an extent"))
-    
+
 end # module

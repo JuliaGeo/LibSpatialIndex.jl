@@ -1,8 +1,8 @@
 using LibSpatialIndex
 using Test
-using GeoInterface
-const SI = LibSpatialIndex
-const GI = GeoInterface
+import GeoInterface as GI
+import LibSpatialIndex as SI
+import Aqua
 
 @testset "Simple Tutorial" begin
     # based on https://github.com/libspatialindex/libspatialindex/wiki/Simple-Tutorial
@@ -68,4 +68,8 @@ end
     @test SI.intersects(rtree, (X=2.0, Y=2.0)) == [2]
     @test sort(SI.knn(rtree, GI.Extent(X=(2.0, 2.0), Y=(2.0, 2.0)), 1)) == [2]
     @test sort(SI.knn(rtree, (2.0, 2.0), 1)) == [2]
+end
+
+@testset "Aqua" begin
+    Aqua.test_all(LibSpatialIndex)
 end
