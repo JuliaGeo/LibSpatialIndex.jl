@@ -1,5 +1,7 @@
 module LibSpatialIndex
 
+    import GeoInterface as GI
+
     include("capi.jl")
 
     version() = unsafe_string(C.SIDX_Version())
@@ -11,6 +13,8 @@ module LibSpatialIndex
     end
 
     """
+        RTree(ndim::Integer; kw...)
+
     The RTree index [guttman84] is a balanced tree structure that consists of
     index nodes, leaf nodes and data.
 
@@ -22,9 +26,12 @@ module LibSpatialIndex
     They cannot be empty though. A `fillfactor` specifies the minimum number of
     entries allowed in any node. The fill factor is usually close to `70%`.
 
-    # Options
+    ## Arguments
 
-    * `ndim`: Dimensionality of the data that will be inserted.
+    `ndim`: Dimensionality of the data that will be inserted.
+
+    ## Keywords
+
     * `indextype`: one of `RT_RTree` (default), `RT_MVRTree`, or `RT_TPRTree`.
     * `variant`: one of `RT_Linear`, `RT_Quadratic`, or `RT_Star` (default).
     * `storage`: one of `RT_Memory` (default), `RT_Disk`, or `RT_Custom`.
@@ -39,7 +46,7 @@ module LibSpatialIndex
     * `fillfactor`: The fill factor. Default is `0.7`.
     * `splitdistributionfactor`: Default is `0.4`.
     * `reinsertfactor`: Default is `0.3`.
-    
+
     # Performance
 
     Dataset size, data density, etc. have nothing to do with capacity and page
@@ -152,12 +159,22 @@ module LibSpatialIndex
     end
 
     """
+        insert!(rtree::RTree, id::Integer, minvalues::Vector{Float64}, maxvalues::Vector{Float64})
+        insert!(rtree::RTree, id::Integer, extent::Extent)
+        insert!(rtree::RTree, id::Integer, obj)
+
     Inserts an item into the `rtree` with given `id` and boundingbox specified
     by `minvalues` and `maxvalues`, where the item lies within the interval
-    `[minvalues[i],maxvalues[i]]` for each axis `i` in 1, ..., `ndim`.
+    `[minvalues[i], maxvalues[i]]` for each axis `i` in 1, ..., `ndim`,
+    or similar for the `Extent` of `obj`.
+
+    If `obj` is passed it will be detected as a `GeoInterface.PointTrait`
+    and used as a point, or otherwise `GeoInterface.extent` will be called to
+    detect or calculate the objects `Extent`, falling back to `Extents.extent`.
+
+    In these cases `minvalues` and `maxvalues` are taken from the point or extent.
     """
-    function insert!(
-            rtree::RTree,
+    function insert!(rtree::RTree,
             id::Integer,
             minvalues::Vector{Float64},
             maxvalues::Vector{Float64}
@@ -166,13 +183,30 @@ module LibSpatialIndex
             pointer(maxvalues), UInt32(length(minvalues)), Ptr{UInt8}(0), Cint(0)
         )
     end
+    function insert!(rtree::RTree, id::Integer, extent::GI.Extent)
+        insert!(rtree, id, _ext2vecs(extent)...)
+    end
+    insert!(rtree::RTree, id::Integer, extent::Nothing) = _not_point_or_ext_error()
+    function insert!(rtree::RTree, id::Integer, obj)
+        insert!(rtree, id, GI.extent(obj))
+    end
 
     """
+        intersects(rtree::RTree, minvalues::Vector{Float64}, maxvalues::Vector{Float64})
+        intersects(rtree::RTree, extent::Extent)
+        intersects(rtree::RTree, obj)
+
     Returns a vector of `id`s corresponding to items in `rtree` that intersects
     the box specified by `minvalues` and `maxvalues`.
 
-    Each item intersects the interval `[minvalues[i],maxvalues[i]]` for each
-    axis `i` in 1, ..., `ndim`.
+    Each item intersects the interval `[minvalues[i], maxvalues[i]]` for each
+    axis `i` in 1, ..., `ndim`, or similar for the `Extent` of `obj`.
+
+    If `obj` is passed it will be detected as a `GeoInterface.PointTrait`
+    and used as a point, or otherwise `GeoInterface.extent` will be called to
+    detect or calculate the objects `Extent`, falling back to `Extents.extent`.
+
+    In these cases `minvalues` and `maxvalues` are taken from the point or extent.
     """
     function intersects(
             rtree::RTree,
@@ -187,21 +221,38 @@ module LibSpatialIndex
         _checkresult(result, "Index_Intersects_id: Failed to evaluate")
         unsafe_wrap(Array, items[], nresults[])
     end
-
-    """
-    Returns a vector of `id`s corresponding to items in `rtree` that intersects
-    the coordinates specified by `point`.
-    """
     intersects(rtree::RTree, point::Vector{Float64}) = intersects(rtree, point, point)
+    function intersects(rtree::RTree, obj)
+        if GI.trait(obj) isa GI.PointTrait
+            intersects(rtree, _point2vec(obj))
+        else
+            intersects(rtree, GI.extent(obj))
+        end
+    end
+    function intersects(rtree::RTree, extent::GI.Extent)
+        intersects(rtree::RTree, _ext2vecs(extent)...)
+    end
+    intersects(rtree::RTree, ::Nothing) = _not_point_or_ext_error()
 
     """
+        knn(rtree::RTree, minvalues::Vector{Float64}, maxvalues::Vector{Float64}, k::Integer)
+        knn(rtree::RTree, extent::Extent, k::Integer)
+        knn(rtree::RTree, obj, k::Integer)
+
     Returns a vector of `id`s corresponding to the `k` items in `rtree`
     that are nearest to the box specified by `minvalues` and `maxvalues`.
+    Each item intersects the interval `[minvalues[i], maxvalues[i]]` for each
+    axis `i` in 1, ..., `ndim`, or similar for the `Extent` of `obj`.
 
-    Each item intersects the interval `[minvalues[i],maxvalues[i]]` for each
-    axis `i` in 1, ..., `ndim`. If there are fewer than `k` items in `rtree`,
+    If there are fewer than `k` items in `rtree`,
     it will return less than `k` items. On the other hand, if there are ties
     between some of the items, it might return more than `k` items.
+
+    If `obj` is passed it will be detected as a `GeoInterface.PointTrait`
+    and used as a point, or otherwise `GeoInterface.extent` will be called to
+    detect or calculate the objects `Extent`, falling back to `Extents.extent`.
+
+    In these cases `minvalues` and `maxvalues` are taken from the point or extent.
     """
     function knn(
             rtree::RTree,
@@ -216,15 +267,38 @@ module LibSpatialIndex
         _checkresult(result, "Index_NearestNeighbors_id: Failed to evaluate")
         unsafe_wrap(Array, items[], nresults[])
     end
-
-    """
-    Returns a vector of `id`s corresponding to the `k` items in `rtree`
-    that are nearest to the box specified by `minvalues` and `maxvalues`.
-
-    If there are fewer than `k` items in `rtree`, it will return less than `k`
-    items. On the other hand, if there are ties between some of the items,
-    it might return more than `k` items.
-    """
     knn(rtree::RTree, point::Vector{Float64}, k::Integer) = knn(rtree, point, point, k)
-    
+    knn(rtree::RTree, extent::GI.Extent, k::Integer) = knn(rtree::RTree, _ext2vecs(extent)..., k)
+    knn(rtree::RTree, extent::Nothing, k::Integer) = _not_point_or_ext_error()
+    function knn(rtree::RTree, obj, k::Integer)
+        if GI.trait(obj) isa GI.PointTrait
+            knn(rtree, _point2vec(obj), k)
+        else
+            knn(rtree, GI.extent(obj), k)
+        end
+    end
+
+    # Utils
+    function _ext2vecs(ex::GI.Extent)
+        haskey(ex, :X) && haskey(ex, :Y) || throw(ArgumentError("Extent does not have X and Y keys"))
+
+        min, max = if haskey(ex, :Z)
+            Float64[ex.X[1], ex.Y[1], ex.Z[1]], Float64[ex.X[2], ex.Y[2], ex.Z[1]]
+        else
+            Float64[ex.X[1], ex.Y[1]], Float64[ex.X[2], ex.Y[2]]
+        end
+
+        return min, max
+    end
+
+    function _point2vec(p)
+        if GI.is3d(p)
+            Float64[GI.x(p), GI.y(p), GI.z(p)]
+        else
+            Float64[GI.x(p), GI.y(p)]
+        end
+    end
+
+    _not_point_or_ext_error() = throw(ArgumentError("object is not a point, and does not have an extent"))
+
 end # module

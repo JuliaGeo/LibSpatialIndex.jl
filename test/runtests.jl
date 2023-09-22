@@ -1,6 +1,8 @@
 using LibSpatialIndex
 using Test
-const SI = LibSpatialIndex
+import GeoInterface as GI
+import LibSpatialIndex as SI
+import Aqua
 
 @testset "Simple Tutorial" begin
     # based on https://github.com/libspatialindex/libspatialindex/wiki/Simple-Tutorial
@@ -50,4 +52,24 @@ end
     @test sort(SI.knn(rtree, [2.,2.],[2.,2.], 3)) == [1,2]
     @test sort(SI.knn(rtree, [2.,2.], 1)) == [2]
     @test sort(SI.knn(rtree, [2.,2.], 2)) == [1,2]
+end
+
+@testset "GeoInterface/Extents Operations" begin
+    rtree = SI.RTree(2)
+    result = SI.insert!(rtree, 1, GI.Extent(X=(0.0, 1.0), Y=(0.0, 1.0)))
+    @test result == SI.C.RT_None
+
+    polygon = GI.Polygon([GI.LinearRing([(0.0, 0.0), (0.5, 0.0), (2.0, 0.5), (0.0, 2.0), (0.0, 0.0)])])
+    result = SI.insert!(rtree, 2, polygon)
+
+    @test result == SI.C.RT_None
+    @test SI.intersects(rtree, GI.LineString([(0.0, 0.0), (1.0, 1.0)])) == [1, 2]
+    @test SI.intersects(rtree, GI.Point(0.0, 0.0)) == [1, 2]
+    @test SI.intersects(rtree, (X=2.0, Y=2.0)) == [2]
+    @test sort(SI.knn(rtree, GI.Extent(X=(2.0, 2.0), Y=(2.0, 2.0)), 1)) == [2]
+    @test sort(SI.knn(rtree, (2.0, 2.0), 1)) == [2]
+end
+
+@testset "Aqua" begin
+    Aqua.test_all(LibSpatialIndex)
 end
