@@ -1,0 +1,29 @@
+[general]
+library_name = "libspatialindex_c"
+# jll_pkg_name = "LibSpatialIndex_jll"
+output_api_file_path = "../src/include/sidx_api.jl"
+output_common_file_path = "../src/include/sidx_config.jl"
+print_using_CEnum = true
+use_julia_native_enum_type = true
+output_ignorelist = ["SIDX_C_API", "SIDX_THREAD", "STRDUP"]
+use_deterministic_symbol = true
+smart_de_anonymize = true
+extract_c_comment_style = "doxygen"
+fold_single_line_comment = true
+struct_field_comment_style = "outofline"
+enumerator_comment_style = "outofline"
+show_c_function_prototype = false
+
+[codegen]
+is_function_strictly_typed = false
+use_julia_bool = true
+always_NUL_terminated_string = true
+opaque_func_arg_as_PtrCvoid = false
+opaque_as_mutable_struct = false
+
+[codegen.macro]
+macro_mode = "basic"
+add_comment_for_skipped_macro = true
+ignore_header_guards = true
+ignore_header_guards_with_suffixes = []
+ignore_pure_definition = true
