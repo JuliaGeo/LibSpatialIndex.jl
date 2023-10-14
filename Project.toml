@@ -10,7 +10,7 @@ LibSpatialIndex_jll = "00e98e2a-4326-5239-88cb-15dcbe1c18d0"
 [compat]
 Aqua = "0.7"
 GeoInterface = "1"
-LibSpatialIndex_jll = "~1.9"
+LibSpatialIndex_jll = "1.9"
 julia = "1.6"
 
 [extras]
