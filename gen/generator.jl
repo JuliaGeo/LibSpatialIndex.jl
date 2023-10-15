@@ -22,5 +22,3 @@ ctx = create_context(headerfiles, args, options)
 
 # run generator
 build!(ctx)
-
-close(loghandle)
