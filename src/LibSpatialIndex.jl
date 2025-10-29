@@ -179,8 +179,10 @@ module LibSpatialIndex
             minvalues::Vector{Float64},
             maxvalues::Vector{Float64}
         )
+        length(minvalues) == rtree.ndim || throw(DimensionMismatch("Minimum values must have same length as RTree dimensions"))
+        length(maxvalues) == rtree.ndim || throw(DimensionMismatch("Maximum values must have same length as RTree dimensions"))
         C.Index_InsertData(rtree.index, Int64(id), pointer(minvalues),
-            pointer(maxvalues), UInt32(length(minvalues)), Ptr{UInt8}(0), Cint(0)
+            pointer(maxvalues), UInt32(rtree.ndim), Ptr{UInt8}(0), Cint(0)
         )
     end
     function insert!(rtree::RTree, id::Integer, extent::GI.Extent)
@@ -213,10 +215,13 @@ module LibSpatialIndex
             minvalues::Vector{Float64},
             maxvalues::Vector{Float64}
         )
+        length(minvalues) == rtree.ndim || throw(DimensionMismatch("Minimum values must have same length as RTree dimensions"))
+        length(maxvalues) == rtree.ndim || throw(DimensionMismatch("Maximum values must have same length as RTree dimensions"))
+        
         items = Ref{Ptr{Int64}}()
         nresults = Ref{UInt64}()
         result = C.Index_Intersects_id(rtree.index, pointer(minvalues),
-            pointer(maxvalues), UInt32(length(minvalues)), items, nresults
+            pointer(maxvalues), UInt32(rtree.ndim), items, nresults
         )
         _checkresult(result, "Index_Intersects_id: Failed to evaluate")
         unsafe_wrap(Array, items[], nresults[])
@@ -260,10 +265,13 @@ module LibSpatialIndex
             maxvalues::Vector{Float64},
             k::Integer
         )
+        length(minvalues) == rtree.ndim || throw(DimensionMismatch("Minimum values must have same length as RTree dimensions"))
+        length(maxvalues) == rtree.ndim || throw(DimensionMismatch("Maximum values must have same length as RTree dimensions"))
+
         items = Ref{Ptr{Int64}}()
         nresults = Ref{UInt64}(k)
         result = C.Index_NearestNeighbors_id(rtree.index, pointer(minvalues),
-            pointer(maxvalues), UInt32(length(minvalues)), items, nresults)
+            pointer(maxvalues), UInt32(rtree.ndim), items, nresults)
         _checkresult(result, "Index_NearestNeighbors_id: Failed to evaluate")
         unsafe_wrap(Array, items[], nresults[])
     end

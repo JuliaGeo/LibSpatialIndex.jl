@@ -70,6 +70,23 @@ end
     @test sort(SI.knn(rtree, (2.0, 2.0), 1)) == [2]
 end
 
+@testset "Bounds checks" begin
+    # confirm that bounds checks on the Julia side are working
+    tree = SI.RTree(2)
+    @test_throws DimensionMismatch SI.insert!(tree, 0, [0.0], [0.0, 0.1])
+    @test_throws DimensionMismatch SI.insert!(tree, 0, [0.0, 1.0], [0.1])
+    # should throw even if they're the same length if they don't match dimensions
+    @test_throws DimensionMismatch SI.insert!(tree, 0, [0.0, 0.1, 1.1], [0.0, 0.1, 1.1])
+
+    @test_throws DimensionMismatch SI.intersects(tree, [0.0], [0.0, 0.1])
+    @test_throws DimensionMismatch SI.intersects(tree, [0.0, 1.0], [0.1])
+    @test_throws DimensionMismatch SI.intersects(tree, [0.0, 0.1, 1.1], [0.0, 0.1, 1.1])
+
+    @test_throws DimensionMismatch SI.knn(tree, [0.0], [0.0, 0.1], 1)
+    @test_throws DimensionMismatch SI.knn(tree, [0.0, 1.0], [0.1], 1)
+    @test_throws DimensionMismatch SI.knn(tree, [0.0, 0.1, 1.1], [0.0, 0.1, 1.1], 1)
+end
+
 @testset "Aqua" begin
     Aqua.test_all(LibSpatialIndex)
 end
