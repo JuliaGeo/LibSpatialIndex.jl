@@ -29,6 +29,8 @@ import Aqua
         @test nresults[] == 1
 
         # bounds()
+        # reference to null pointer to float64 is okay
+        # the pointer will be overwritten by Index_GetBounds
         pmins_p = Ref{Ptr{Float64}}()
         pmaxs_p = Ref{Ptr{Float64}}()
         ndims = Ref{UInt32}()
