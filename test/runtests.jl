@@ -28,11 +28,21 @@ import Aqua
     @test nresults[] == 1
 
     # bounds()
-    pmins = zeros(2)
-    pmaxs = zeros(2)
+    pmins_p = Ref{Ptr{Float64}}()
+    pmaxs_p = Ref{Ptr{Float64}}()
     ndims = Ref{UInt32}()
-    SI.C.Index_GetBounds(idx, pointer_from_objref(pmins), pointer_from_objref(pmaxs), ndims);
+
+    SI.C.Index_GetBounds(idx, pmins_p, pmaxs_p, ndims);
+
+    # somehow in here the object gets messed up, but only during testing - wtf?  
+    # but only on 1.11 and 1.12? gotta be some kind of bug in Julia itself
+    # Does not happen when running from the REPL or the command line, even in test mode
+    # Only happens with Pkg.test()
     @test ndims[] == 2
+
+    pmins = unsafe_wrap(Vector{Float64}, pmins_p[], ndims[], own=true)
+    pmaxs = unsafe_wrap(Vector{Float64}, pmaxs_p[], ndims[], own=true)
+
     @test isapprox(pmins, [0.5, 0.5])
     @test isapprox(pmaxs, [0.5, 0.5])
 end
