@@ -35,12 +35,7 @@ import Aqua
 
         SI.C.Index_GetBounds(idx, pmins_p, pmaxs_p, ndims);
 
-        # somehow in here the object gets messed up, but only during testing - wtf?  
-        # but only on 1.11 and 1.12? gotta be some kind of bug in Julia itself
-        # Does not happen when running from the REPL or the command line, even in test mode
-        # Only happens with Pkg.test()
         @test ndims[] == 2
-
         pmins = unsafe_wrap(Vector{Float64}, pmins_p[], ndims[], own=true)
         pmaxs = unsafe_wrap(Vector{Float64}, pmaxs_p[], ndims[], own=true)
 
