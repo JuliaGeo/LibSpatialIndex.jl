@@ -1,7 +1,7 @@
 name = "LibSpatialIndex"
 uuid = "f19c2e90-9d16-5f2d-a2a7-af3fb29e4907"
 license = "MIT"
-version = "0.2.1"
+version = "0.2.2"
 
 [deps]
 GeoInterface = "cf35fbd7-0cd7-5166-be24-54bfbe79505f"
