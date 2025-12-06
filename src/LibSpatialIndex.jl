@@ -179,8 +179,13 @@ module LibSpatialIndex
             minvalues::Vector{Float64},
             maxvalues::Vector{Float64}
         )
-        C.Index_InsertData(rtree.index, Int64(id), pointer(minvalues),
-            pointer(maxvalues), UInt32(length(minvalues)), Ptr{UInt8}(0), Cint(0)
+        length(minvalues) == rtree.ndim || throw(DimensionMismatch("Minimum values must have same length as RTree dimensions"))
+        length(maxvalues) == rtree.ndim || throw(DimensionMismatch("Maximum values must have same length as RTree dimensions"))
+
+        # pass C_NULL as data - it should not be dereferenced, but making it null hopefully means if it is
+        # it will be easier to debug
+        C.Index_InsertData(rtree.index, Int64(id), minvalues,
+            maxvalues, UInt32(rtree.ndim), C_NULL, Cint(0)
         )
     end
     function insert!(rtree::RTree, id::Integer, extent::GI.Extent)
@@ -213,10 +218,13 @@ module LibSpatialIndex
             minvalues::Vector{Float64},
             maxvalues::Vector{Float64}
         )
+        length(minvalues) == rtree.ndim || throw(DimensionMismatch("Minimum values must have same length as RTree dimensions"))
+        length(maxvalues) == rtree.ndim || throw(DimensionMismatch("Maximum values must have same length as RTree dimensions"))
+        
         items = Ref{Ptr{Int64}}()
         nresults = Ref{UInt64}()
-        result = C.Index_Intersects_id(rtree.index, pointer(minvalues),
-            pointer(maxvalues), UInt32(length(minvalues)), items, nresults
+        result = C.Index_Intersects_id(rtree.index, minvalues,
+            maxvalues, UInt32(rtree.ndim), items, nresults
         )
         _checkresult(result, "Index_Intersects_id: Failed to evaluate")
         unsafe_wrap(Array, items[], nresults[])
@@ -260,10 +268,13 @@ module LibSpatialIndex
             maxvalues::Vector{Float64},
             k::Integer
         )
+        length(minvalues) == rtree.ndim || throw(DimensionMismatch("Minimum values must have same length as RTree dimensions"))
+        length(maxvalues) == rtree.ndim || throw(DimensionMismatch("Maximum values must have same length as RTree dimensions"))
+
         items = Ref{Ptr{Int64}}()
         nresults = Ref{UInt64}(k)
-        result = C.Index_NearestNeighbors_id(rtree.index, pointer(minvalues),
-            pointer(maxvalues), UInt32(length(minvalues)), items, nresults)
+        result = C.Index_NearestNeighbors_id(rtree.index, minvalues,
+            maxvalues, UInt32(rtree.ndim), items, nresults)
         _checkresult(result, "Index_NearestNeighbors_id: Failed to evaluate")
         unsafe_wrap(Array, items[], nresults[])
     end
@@ -300,5 +311,4 @@ module LibSpatialIndex
     end
 
     _not_point_or_ext_error() = throw(ArgumentError("object is not a point, and does not have an extent"))
-
 end # module
